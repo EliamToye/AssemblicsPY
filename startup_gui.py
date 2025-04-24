@@ -5,7 +5,12 @@ import re
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 
+# Onthoud hoeveel opties
 option_count = 0
+# Onthoud laatste gekozen script
+last_option = None  
+# Label voor actieve optie
+active_option_label = None
 
 scripts = {
     "1": "test1.py",
@@ -20,7 +25,7 @@ delay_time = 5000  # 5 seconden in milliseconden
 # Houd de geplande taak bij
 scheduled_task = None
 
-def run_script(option, repeat=1):
+def run_script(option, serienummer=None, repeat=1):
     global option_count
 
     for _ in range(repeat):
@@ -32,12 +37,16 @@ def run_script(option, repeat=1):
 
         if option in scripts:
             try:
-                log_output.insert(tk.END, f"🚀 Script {scripts[option]} wordt uitgevoerd...\n")
+                log_output.insert(tk.END, f"🚀 Script {scripts[option]} wordt uitgevoerd met serienummer '{serienummer}'...\n")
                 log_output.see(tk.END)
-                log_output.update_idletasks()  # forceer update
+                log_output.update_idletasks()
+
+                args = [sys.executable, scripts[option]]
+                if serienummer:
+                    args.append(serienummer)
 
                 process = subprocess.Popen(
-                    [sys.executable, scripts[option]],
+                    args,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
                     text=True,
@@ -45,11 +54,10 @@ def run_script(option, repeat=1):
                     errors="replace"
                 )
 
-                # Lees output regel per regel en toon onmiddellijk
                 for line in process.stdout:
                     log_output.insert(tk.END, line)
-                    log_output.see(tk.END)  # scroll automatisch naar onder
-                    log_output.update_idletasks()  # forceer update
+                    log_output.see(tk.END)
+                    log_output.update_idletasks()
 
                 process.wait()
 
@@ -75,22 +83,39 @@ def on_user_input(event=None):
     scheduled_task = root.after(delay_time, process_input)
 
 def process_input():
-    user_input = input_entry.get().strip().lower()
-    if not user_input:
-        return  # Als het invoerveld leeg is, gebeurt er verder niets
+    global last_option
 
-    if user_input == "exit":
+    user_input = input_entry.get().strip()
+
+    if not user_input:
+        return
+
+    if user_input.lower() == "exit":
         root.quit()
         return
 
-    match = re.match(r"([a-zA-Z0-9]+)\*(\d+)", user_input)
-    if match:
-        option, repeat = match.groups()
-        run_script(option, int(repeat))
-    else:
-        run_script(user_input)
+    input_upper = user_input.upper()
 
-    # Maak het invoerveld leeg na het uitvoeren van het script
+    # Eerste keuze: PIM of RIS
+    if input_upper in ["PIM", "RIS"]:
+        last_option = "1" if input_upper == "PIM" else "2"
+
+        # Clear log en toon geselecteerde optie
+        log_output.delete('1.0', tk.END)
+        log_output.insert(tk.END, f"✅ Optie '{input_upper}' gekozen. Wacht op serienummer...\n")
+        log_output.see(tk.END)
+
+        # Update label
+        active_option_label.config(text=f"Actieve optie: {input_upper}")
+    
+    # Tweede input: Serienummer
+    elif last_option and re.match(r"^[A-Za-z0-9\-]+$", user_input):
+        log_output.insert(tk.END, f"📦 Serienummer ingevoerd: {user_input}\n")
+        run_script(last_option, serienummer=user_input)
+    
+    else:
+        log_output.insert(tk.END, "❌ Ongeldige input. Typ eerst PIM of RIS.\n")
+
     input_entry.delete(0, tk.END)
 
 def clear_log():
@@ -117,7 +142,7 @@ root.geometry("600x400")
 frame = ttk.Frame(root, padding="10")
 frame.pack(fill=tk.BOTH, expand=True)
 
-label = ttk.Label(frame, text="Voer een optie in (1 of 2):")
+label = ttk.Label(frame, text="Voer in (PIM of RIS) & dan serienummer :")
 label.pack(pady=5)
 
 input_entry = ttk.Entry(frame)
@@ -130,6 +155,10 @@ input_entry.bind("<KeyRelease>", on_user_input)
 # Knoppen
 open_log_button = ttk.Button(frame, text="Open Logbestand", command=open_log_file)
 open_log_button.pack(pady=5)
+
+# Label om actieve optie te tonen
+active_option_label = ttk.Label(frame, text="Actieve optie: Geen", font=("Helvetica", 10, "bold"))
+active_option_label.pack(pady=5)
 
 log_output = scrolledtext.ScrolledText(frame, wrap=tk.WORD, height=15)
 log_output.pack(fill=tk.BOTH, expand=True, pady=10)
