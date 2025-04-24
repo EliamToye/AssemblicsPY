@@ -79,7 +79,7 @@ def run_script(option, serienummer=None, repeat=1):
     input_entry.config(state='normal')
 
     # Na 5 seconden input wissen als extra veiligheid
-    root.after(1000, lambda: input_entry.delete(0, tk.END))
+    root.after(500, lambda: input_entry.delete(0, tk.END))
 
     input_entry.focus()
 
