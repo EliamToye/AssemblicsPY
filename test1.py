@@ -23,6 +23,18 @@ uart = serial.Serial(
     timeout=1
 )
 
+# Serienummer verkrijgen
+# Verkrijg het serienummer uit de commandoregelargumenten
+if len(sys.argv) > 1:
+    serienummer = sys.argv[1]
+    print(f"Serienummer ontvangen: {serienummer}")
+else:
+    print("Fout: Geen serienummer opgegeven.")
+    sys.exit(1)
+if not serienummer.isdigit():
+    print("Fout: Serienummer moet uit cijfers bestaan.")
+    sys.exit(1)
+
 # Functie om de log naar een bestand te schrijven met alleen serienummer, tijd/datum, testuitkomst en stapbeschrijving
 def log_to_file(serienummer, status, description, failed_step=None):
     log_file = "test_log.txt"
@@ -49,7 +61,6 @@ def main():
     sys.stdout.flush()
 
     # Willekeurig serienummer genereren
-    serienummer = random.randint(100, 199)  # Willekeurig serienummer
     print(f"Gegenereerd serienummer: {serienummer}")
     sys.stdout.flush()
 
