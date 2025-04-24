@@ -1,9 +1,0 @@
-2025-04-24 07:26:50 | Serienummer: 155 | Status: correct - Alle stappen waren succesvol
-2025-04-24 07:34:30 | Serienummer: 142 | Status: correct - Alle stappen waren succesvol
-2025-04-24 08:42:34 | Serienummer: 135 | Status: correct - Alle stappen waren succesvol
-2025-04-24 08:49:43 | Serienummer: 109 | Status: correct - Alle stappen waren succesvol
-2025-04-24 09:33:02 | Serienummer: 145 | Status: correct - Alle stappen waren succesvol
-2025-04-24 09:33:59 | Serienummer: 168 | Status: fout | Fout op stap 5 - Wijzig modus naar 'S03', configuratie opgeslagen
-2025-04-24 09:46:42 | Serienummer: 123 | Status: fout | Fout op stap 1 - Power up device met 24VDC en controleer POWER LED en stroomverbruik (< 50mA, typisch 30mA)
-2025-04-24 10:00:45 | Serienummer: 123 | Status: correct - Alle stappen waren succesvol
-2025-04-24 10:01:26 | Serienummer: 5555 | Status: correct - Alle stappen waren succesvol
