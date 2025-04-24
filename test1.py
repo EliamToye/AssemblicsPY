@@ -3,6 +3,9 @@ import random
 from datetime import datetime
 import sys
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
+from gpiozero import DigitalInputDevice
+gpio_pinsI = [4, 10, 9, 11, 0, 18, 24, 1, 12, 16]
+gpio_inputs = {pin: DigitalInputDevice(pin) for pin in gpio_pinsI}
 
 # Functie om de log naar een bestand te schrijven met alleen serienummer, tijd/datum, testuitkomst en stapbeschrijving
 def log_to_file(serienummer, status, description, failed_step=None):
