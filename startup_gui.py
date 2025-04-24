@@ -5,10 +5,14 @@ import re
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 
+# Onthoud hoeveel opties
 option_count = 0
+# Onthoud laatste gekozen script
 last_option = None  
+# Label voor actieve optie
 active_option_label = None
-input_allowed = True  # ✅ Nieuw: input mag initieel
+# Flag om te zien of een script bezig is
+script_is_running = False
 
 scripts = {
     "1": "test1.py",
@@ -18,24 +22,28 @@ scripts = {
 }
 
 log_file = "test_log.txt"
-delay_time = 5000
+delay_time = 5000  # 5 seconden
+
+# Houd de geplande taak bij
 scheduled_task = None
 
 def run_script(option, serienummer=None, repeat=1):
-    global option_count, input_allowed
+    global option_count, script_is_running
 
-    input_allowed = False  # ✅ Blokkeer input
+    script_is_running = True
     input_entry.config(state='disabled')
     root.update()
 
     for _ in range(repeat):
         option_count += 1
+
         log_output.delete('1.0', tk.END)
         log_output.insert(tk.END, f"📢 Uitvoering gestart...\n")
 
         if option in scripts:
             try:
                 log_output.insert(tk.END, f"🚀 Script {scripts[option]} wordt uitgevoerd...\n")
+
                 command = [sys.executable, scripts[option]]
                 if serienummer:
                     command.append(serienummer)
@@ -67,16 +75,19 @@ def run_script(option, serienummer=None, repeat=1):
             log_output.insert(tk.END, "❌ Ongeldige optie, probeer opnieuw.\n")
             break
 
-    input_entry.delete(0, tk.END)  # ✅ Wis eventueel ingedrukte toetsen
-    input_entry.config(state='normal')  # ✅ Invoer opnieuw toestaan
+    script_is_running = False
+    input_entry.config(state='normal')
+
+    # Na 5 seconden input wissen als extra veiligheid
+    root.after(1000, lambda: input_entry.delete(0, tk.END))
+
     input_entry.focus()
-    input_allowed = True
 
 def on_user_input(event=None):
     global scheduled_task
 
-    if not input_allowed:
-        return  # ✅ Geen invoer toestaan tijdens script
+    if script_is_running:
+        return  # Geen invoer verwerken als een script bezig is
 
     if scheduled_task:
         root.after_cancel(scheduled_task)
@@ -86,7 +97,11 @@ def on_user_input(event=None):
 def process_input():
     global last_option
 
+    if script_is_running:
+        return  # Beveiliging, extra controle
+
     user_input = input_entry.get().strip()
+
     if not user_input:
         return
 
@@ -120,7 +135,7 @@ def open_log_file():
         try:
             with open(log_file, "r") as f:
                 content = f.read()
-                log_output.insert(tk.END, "📖 Inhoud van logbestand:\n")
+                log_output.insert(tk.END, "📂 Inhoud van logbestand:\n")
                 log_output.insert(tk.END, content)
                 log_output.see(tk.END)
         except Exception as e:
