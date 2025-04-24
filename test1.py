@@ -4,8 +4,24 @@ from datetime import datetime
 import sys
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 from gpiozero import DigitalInputDevice
+from gpiozero import OutputDevice
+import serial
+
+# Gpio pinnen defineren en zetten op inputs en outputs
+# Input
 gpio_pinsI = [4, 10, 9, 11, 0, 18, 24, 1, 12, 16]
 gpio_inputs = {pin: DigitalInputDevice(pin) for pin in gpio_pinsI}
+# Output
+gpio_pinsO = [2, 3, 17, 27, 22, 5, 6, 13, 19, 26, 23, 25, 8, 7]
+gpio_outputs = {pin: OutputDevice(pin) for pin in gpio_pinsO}
+
+#UART
+# Setup UART op de default serial-poort (meestal /dev/serial0 op Raspberry Pi)
+uart = serial.Serial(
+    port='/dev/serial0',
+    baudrate=9600,       # Pas dit aan naar wat je ESP verwacht
+    timeout=1
+)
 
 # Functie om de log naar een bestand te schrijven met alleen serienummer, tijd/datum, testuitkomst en stapbeschrijving
 def log_to_file(serienummer, status, description, failed_step=None):
