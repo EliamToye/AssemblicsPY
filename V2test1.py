@@ -230,7 +230,25 @@ def stap_uitvoeren(stap_nummer):
 
             print("Stap 10: Beide LEDs zijn actief.")
 
+        elif stap_nummer == 11:
+            print("Stap 11: Controleer of UART terug op S03 staat.")
+
+            start_time = time()
+            serienummer = lees_serienummer()
+
+            while serienummer != "S03":
+                if time() - start_time > 10:
+                 raise TimeoutError("Stap 11 Fout: Timeout bij wachten op S03 via UART.")
         
+            print(f"Stap 11: Serienummer is {serienummer}, druk BUTTON_1 in en probeer opnieuw.")
+            BUTTON_1.on()
+            sleep(0.5)
+            BUTTON_1.off()
+            sleep(0.5)
+
+            serienummer = lees_serienummer()
+
+            print("Stap 11: Correcte serienummer S03 ontvangen.")
         # ...
         elif stap_nummer == 15:
             # Laatste stap
