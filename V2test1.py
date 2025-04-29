@@ -282,11 +282,6 @@ def stap_uitvoeren(stap_nummer):
                 log_file.write(f"{huidige_tijd} | Serienummer: {serienummer} | Status: {status} - Alle stappen waren succesvol\n")
 
             print(f"Stap 14: Loggen succesvol. Logbestand bijgewerkt.")
-        elif stap_nummer == 15:
-            # Laatste stap
-            pass
-        else:
-            pass  # Placeholder voor andere stappen
     except Exception as e:
         print(f"!!! FOUT bij stap {stap_nummer}: {e}")
         sys.exit(1)
@@ -299,7 +294,7 @@ def main():
     led_thread.start()
 
     try:
-        for stap in range(1, 16):  # Stappen 1 t.e.m. 15
+        for stap in range(1, 15):  # Stappen 1 t.e.m. 14
             stap_uitvoeren(stap)
     except KeyboardInterrupt:
         print("Programma onderbroken door gebruiker.")
