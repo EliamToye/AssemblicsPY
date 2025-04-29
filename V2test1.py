@@ -216,6 +216,20 @@ def stap_uitvoeren(stap_nummer):
                  raise ValueError("Stap 9 Fout: Groene LED 1 is niet actief.")
             print("Stap 9: Groene LED 1 is actief.")
         
+        elif stap_nummer == 10:
+            print("Stap 10: Zet beide bridge wires aan (P1_1 en P1_2).")
+            P1_1.on()
+            P1_2.on()
+            sleep(0.5)  # wacht even voor stabilisatie
+
+            print("Stap 10: Controleer LED groen2 en rood.")
+            if not LED_GREEN2_OUT.is_active:
+                raise ValueError("Stap 10 Fout: Groene LED 2 is niet actief.")
+            if not LED_RED_OUT.is_active:
+                raise ValueError("Stap 10 Fout: Rode LED is niet actief.")
+
+            print("Stap 10: Beide LEDs zijn actief.")
+
         
         # ...
         elif stap_nummer == 15:
