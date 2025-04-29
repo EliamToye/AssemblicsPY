@@ -130,23 +130,20 @@ def stap_uitvoeren(stap_nummer):
             gevonden = False
 
             while time.time() - starttijd < 10:
-                # BUTTON 1 activeren
+
                 BUTTON_1.on()
                 sleep(1)
                 BUTTON_1.off()
 
-                # Lees UART waarde
                 mode = lees_serienummer()
                 if mode == "S03":
                     gevonden = True
                     break
 
-                # BUTTON 2 activeren (om door te gaan als geen "S03")
                 BUTTON_2.on()
                 sleep(1)
                 BUTTON_2.off()
 
-                # Lees UART opnieuw na BUTTON_2
                 mode = lees_serienummer()
                 if mode == "S03":
                     gevonden = True
@@ -155,6 +152,22 @@ def stap_uitvoeren(stap_nummer):
                 if not gevonden:
                     raise TimeoutError("Timeout: 'S03' niet gevonden binnen 10 seconden.")
 
+        elif stap_nummer == 4:
+            if LED_GREEN1_OUT.is_pressed and LED_YELLOW_OUT.is_pressed:
+                print("Stap 4: Groene en gele LED zijn aan, verder met volgende stap.")
+            else:
+                raise ValueError("Stap 4 Fout: Groene of gele LED is niet aan.")
+
+        elif stap_nummer == 5:
+            print("Stap 5: Zet P3A aan.")
+            P3A.on()
+            sleep(0.5)  # Wacht even voor stabiliteit
+
+            if LED_GREEN1_OUT.is_pressed:
+                print("Stap 5: Groene LED is aan na activeren P3A.")
+            else:
+                raise ValueError("Stap 5 Fout: Groene LED is niet aan na activeren P3A.")   
+        
         # ...
         elif stap_nummer == 15:
             # Laatste stap
