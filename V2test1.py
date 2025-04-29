@@ -1,5 +1,10 @@
 from gpiozero import LED
 from time import sleep
+import threading
+import os
+import sys
+import signal
+import serial
 
 # Signal_R (GPIO 2) - Output: Rood Led fixstuur
 Signal_R = LED(2)
@@ -69,9 +74,87 @@ INPUT_P4B = Button(12)
 # INPUT_P4C (GPIO 16) - Input: Relais 2
 INPUT_P4C = Button(16)
 
-# Example: Blink the red LED (Signal_R) every 10 seconds
-while True:
-    Signal_R.on()  # Turn on the red LED
-    sleep(10)      # Wait for 10 seconds
-    Signal_R.off() # Turn off the red LED
-    sleep(10)      # Wait for another 10 seconds
+#functies
+# Variabele om het knipperen te stoppen
+knipperen = True
+
+# Verwacht serienummer voor test
+verwacht_serienummer = "153"
+
+def knipper_leds():
+    """Functie die de LEDs laat knipperen zolang 'knipperen' True is."""
+    while knipperen:
+        Signal_R.on()
+        Signal_G.off()
+        sleep(1)   # sneller knipperen voor visuele feedback
+        Signal_R.off()
+        Signal_G.on()
+        sleep(1)
+    # Als knipperen False wordt:
+    Signal_R.off()
+    Signal_G.off()
+    print("Knipperen gestopt.")
+
+def lees_serienummer():
+    try:
+        with serial.Serial("/dev/serial0", baudrate=9600, timeout=5) as ser:
+            print("Wachten op serienummer via UART...")
+            lijn = ser.readline().decode("utf-8").strip()
+            print(f"Ontvangen serienummer: {lijn}")
+            return lijn
+    except Exception as e:
+        print(f"FOUT bij UART lezen: {e}")
+        return None
+
+def stap_uitvoeren(stap_nummer):
+    print(f"Stap {stap_nummer}: uitvoering...")
+
+    try:
+        if stap_nummer == 1:
+            BUTTON_1.on()
+            BUTTON_2.on()
+            sleep(3)
+            R_24V.on()
+            sleep(1)
+            BUTTON_1.off()
+            BUTTON_2.off()
+
+        elif stap_nummer == 2:
+            serienummer = lees_serienummer()
+            if serienummer != verwacht_serienummer:
+                raise ValueError(f"Serienummer mismatch! Verwacht '{verwacht_serienummer}', kreeg '{serienummer}'")
+        
+        elif stap_nummer == 3:
+            
+
+        # ...
+        elif stap_nummer == 15:
+            # Laatste stap
+            pass
+        else:
+            pass  # Placeholder voor andere stappen
+    except Exception as e:
+        print(f"!!! FOUT bij stap {stap_nummer}: {e}")
+        sys.exit(1)
+
+def main():
+    print("Programma gestart. LED-statusindicatie actief.")
+
+    # Start knipperende LEDs in aparte thread
+    led_thread = threading.Thread(target=knipper_leds)
+    led_thread.start()
+
+    try:
+        for stap in range(1, 16):  # Stappen 1 t.e.m. 15
+            stap_uitvoeren(stap)
+    except KeyboardInterrupt:
+        print("Programma onderbroken door gebruiker.")
+    finally:
+        # Stop de knipperende LEDs
+        global knipperen
+        knipperen = False
+        led_thread.join()
+        print("Programma correct afgesloten.")
+
+if __name__ == "__main__":
+    main()
