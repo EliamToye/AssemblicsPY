@@ -1,5 +1,6 @@
 from gpiozero import LED
 from time import sleep
+import time
 import threading
 import os
 import sys
@@ -125,7 +126,34 @@ def stap_uitvoeren(stap_nummer):
                 raise ValueError(f"Serienummer mismatch! Verwacht '{verwacht_serienummer}', kreeg '{serienummer}'")
         
         elif stap_nummer == 3:
-            
+            starttijd = time.time()
+            gevonden = False
+
+            while time.time() - starttijd < 10:
+                # BUTTON 1 activeren
+                BUTTON_1.on()
+                sleep(1)
+                BUTTON_1.off()
+
+                # Lees UART waarde
+                mode = lees_serienummer()
+                if mode == "S03":
+                    gevonden = True
+                    break
+
+                # BUTTON 2 activeren (om door te gaan als geen "S03")
+                BUTTON_2.on()
+                sleep(1)
+                BUTTON_2.off()
+
+                # Lees UART opnieuw na BUTTON_2
+                mode = lees_serienummer()
+                if mode == "S03":
+                    gevonden = True
+                    break
+
+                if not gevonden:
+                    raise TimeoutError("Timeout: 'S03' niet gevonden binnen 10 seconden.")
 
         # ...
         elif stap_nummer == 15:
