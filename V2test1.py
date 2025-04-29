@@ -249,7 +249,20 @@ def stap_uitvoeren(stap_nummer):
             serienummer = lees_serienummer()
 
             print("Stap 11: Correcte serienummer S03 ontvangen.")
+
+        elif stap_nummer == 12:
+            print("Stap 12: Controleer of groene LED 1 actief is.")
+            if not LED_GREEN1_OUT.is_active:
+                raise ValueError("Stap 12 Fout: Groene LED 1 is niet actief.")
+            print("Stap 12: Groene LED 1 is correct actief.")
         # ...
+        elif stap_nummer == 13:
+            print("Stap 13: Zet bridge wires (P1_1 en P1_2) en R_24V uit.")
+            P1_1.off()
+            P1_2.off()
+            R_24V.off()
+            sleep(0.5)  # korte stabilisatietijd
+            print("Stap 13: Bridge wires en R_24V zijn uitgeschakeld.")
         elif stap_nummer == 15:
             # Laatste stap
             pass
