@@ -167,6 +167,49 @@ def stap_uitvoeren(stap_nummer):
                 print("Stap 5: Groene LED is aan na activeren P3A.")
             else:
                 raise ValueError("Stap 5 Fout: Groene LED is niet aan na activeren P3A.")   
+        elif stap_nummer == 6:
+            print("Stap 6: Zet P3A uit.")
+            P3A.off()
+            sleep(0.5)  # Geef tijd voor verandering
+
+            if LED_RED_OUT.is_pressed and LED_GREEN2_OUT.is_pressed:
+                print("Stap 6: Rood en tweede groene LED zijn aan.")
+            else:
+                raise ValueError("Stap 6 Fout: Rood of tweede groene LED is niet aan.")
+        
+        elif stap_nummer == 7:
+            print("Stap 7: Zet P3A en P3C aan.")
+            P3A.on()
+            P3C.on()
+            sleep(0.5)
+
+            if LED_YELLOW_OUT.is_pressed:
+                print("Stap 7: Gele LED is aan.")
+            else:
+                raise ValueError("Stap 7 Fout: Gele LED is niet aan.")
+
+        elif stap_nummer == 8:
+            print("Stap 8: Zet P3A en P3C uit.")
+            P3A.off()
+            P3C.off()
+            sleep(0.5)
+
+            print("Stap 8: Wachten op UART 'S02', indien niet: Button 1 pulsen.")
+            timeout = 10
+            start_time = time()
+            while time() - start_time < timeout:
+                uart_value = lees_serienummer()
+                if uart_value == "S02":
+                    print("Stap 8: Correcte UART-waarde 'S02' ontvangen.")
+                    break
+                else:
+                    BUTTON_1.on()
+                    sleep(0.5)
+                    BUTTON_1.off()
+                    sleep(0.5)
+            else:
+                raise ValueError("Stap 8 Fout: 'S02' niet ontvangen binnen tijdslimiet.")
+
         
         # ...
         elif stap_nummer == 15:
