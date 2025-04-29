@@ -6,6 +6,7 @@ import os
 import sys
 import signal
 import serial
+from datetime import datetime
 
 # Signal_R (GPIO 2) - Output: Rood Led fixstuur
 Signal_R = LED(2)
@@ -263,6 +264,24 @@ def stap_uitvoeren(stap_nummer):
             R_24V.off()
             sleep(0.5)  # korte stabilisatietijd
             print("Stap 13: Bridge wires en R_24V zijn uitgeschakeld.")
+
+        elif stap_nummer == 14:
+            print("Stap 14: Loggen van de resultaten.")
+
+            # Verkrijg het huidige serienummer
+            serienummer = 153
+
+            # Bepaal de status van de stappen
+            status = "correct"  # Hier zou je later de status kunnen uitbreiden als dat nodig is
+
+            # Verkrijg de huidige tijd en datum
+            huidige_tijd = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            # Loggen naar bestand
+            with open("/pad/naar/logbestand.txt", "a") as log_file:
+                log_file.write(f"{huidige_tijd} | Serienummer: {serienummer} | Status: {status} - Alle stappen waren succesvol\n")
+
+            print(f"Stap 14: Loggen succesvol. Logbestand bijgewerkt.")
         elif stap_nummer == 15:
             # Laatste stap
             pass
