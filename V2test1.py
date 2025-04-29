@@ -210,6 +210,12 @@ def stap_uitvoeren(stap_nummer):
             else:
                 raise ValueError("Stap 8 Fout: 'S02' niet ontvangen binnen tijdslimiet.")
 
+        elif stap_nummer == 9:
+            print("Stap 9: Controleer of groene LED 1 aan ligt.")
+            if not LED_GREEN1_OUT.is_active:
+                 raise ValueError("Stap 9 Fout: Groene LED 1 is niet actief.")
+            print("Stap 9: Groene LED 1 is actief.")
+        
         
         # ...
         elif stap_nummer == 15:
