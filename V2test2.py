@@ -71,6 +71,12 @@ def doorloop_stappen():
     if not stap_4_groen_led1_check():
         return
     
+    if not stap_5_rode_led_pcb_check():
+        return
+    
+    if not stap_6_magneet_roodled_check():
+        return
+    
     
     print("Stappen beëindigd.")
     
@@ -183,6 +189,22 @@ def stap_5_rode_led_pcb_check():
         return True
     else:
         log_result("fout", "Controle of de rode LED op de PCB brandt")
+        return False
+    
+def stap_6_magneet_roodled_check():
+    print("Stap 6: Zet MC2.2 uit, MC1.2 aan en controleer of rode LED op PCB brandt...")
+
+    mc22.off()
+    mc12.on()
+    sleep(0.5)
+
+    rood_led_status = led_red_out.value
+
+    if rood_led_status == 1:
+        log_result("correct", "MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB")
+        return True
+    else:
+        log_result("fout", "MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB")
         return False
     
 
