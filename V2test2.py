@@ -60,8 +60,10 @@ def doorloop_stappen():
     print("Start stappen...")
 
     if not stap_1_r24v_uart_check():
-        return  # Stop als stap 1 faalt
+        return
 
+    if not stap_2_rs485_check():
+        return
 
     print("Stappen beëindigd.")
     
@@ -103,7 +105,7 @@ def main():
 
 def stap_1_r24v_uart_check():
     print("Stap 1: Zet R_24V aan (GPIO 23 / RS485)...")
-    rs485.on()
+    R_24V.on()
     sleep(0.5)
 
     # Lees UART
@@ -114,6 +116,22 @@ def stap_1_r24v_uart_check():
     else:
         log_result("fout", "Power up device met 24VDC en controle van module")
         return False
+
+def stap_2_rs485_check():
+    print("Stap 2: Zet RS485 aan en controleer RS485A + Gele LED...")
+    rs485.on()
+    sleep(0.5)
+
+    rs485a_status = rs485a.value
+    yellow_led_status = led_yellow_out.value
+
+    if rs485a_status == 1 and yellow_led_status == 1:
+        log_result("correct", "RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt")
+        return True
+    else:
+        log_result("fout", "RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt")
+        return False
+    
 
 # Start het script
 if __name__ == "__main__":
