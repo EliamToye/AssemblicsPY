@@ -7,74 +7,30 @@ import sys
 import signal
 import serial
 from datetime import datetime
-
-# Signal_R (GPIO 2) - Output: Rood Led fixstuur
-Signal_R = LED(2)
-
-# Signal_G (GPIO 3) - Output: Groen Led fixstuur
-Signal_G = LED(3)
-
-# Input_P2B (GPIO 4) - Input: Relais 1 (for detecting state of relay)
-# Not used for output, but if you want to read its state:
 from gpiozero import Button
-Input_P2B = Button(4)
 
-# P3A (GPIO 17) - Output: Eerste kortsluiting (820)
-P3A = LED(17)
-
-# P3C (GPIO 27) - Output: Tweede kortsluiting (240)
-P3C = LED(27)
-
-# P1.2 (GPIO 22) - Output: Bridge wire
-P1_2 = LED(22)
-
-# LED_RED_OUT (GPIO 10) - Input: Rood led pcb
-# If you want to read the state, use Button or InputDevice
-from gpiozero import Button
-LED_RED_OUT = Button(10)
-
-# LED_YELLOW_OUT (GPIO 9) - Input: Led geel pcb
-LED_YELLOW_OUT = Button(9)
-
-# LED_GREEN2_OUT (GPIO 11) - Input: Led groen2 pcb
-LED_GREEN2_OUT = Button(11)
-
-# LED_GREEN1_OUT (GPIO 0) - Input: Led groen1 pcb
-LED_GREEN1_OUT = Button(0)
-
-# BUTTON 2 (GPIO 5) - Output: Knop 2
-BUTTON_2 = LED(5)
-
-# BUTTON 1 (GPIO 6) - Output: Knop 1
-BUTTON_1 = LED(6)
-
-# R_24V (GPIO 26) - Output: 24V extern
-R_24V = LED(26)
-
-# UART RX (GPIO 14) - UART Input: Uart RX
-# Not used in this example, but you can use a library like pySerial to communicate
-UART_RX = Button(14)
-
-# UART TX (GPIO 15) - UART Output: Uart TX
-UART_TX = Button(15)
-
-# RS485 (GPIO 23) - Output: Aansturing
-RS485 = LED(23)
-
-# RS485A (GPIO 24) - Input: Indicatie Aansturing
-RS485A = Button(24)
-
-# P1.1 (GPIO 25) - Output: Bridge wire
-P1_1 = LED(25)
-
-# INPUT_P2C (GPIO 1) - Input: Relais 1
-INPUT_P2C = Button(1)
-
-# INPUT_P4B (GPIO 12) - Input: Relais 2
-INPUT_P4B = Button(12)
-
-# INPUT_P4C (GPIO 16) - Input: Relais 2
-INPUT_P4C = Button(16)
+#pinnen
+Signal_R = LED(2)# Signal_R (GPIO 2) - Output: Rood Led fixstuur
+Signal_G = LED(3)# Signal_G (GPIO 3) - Output: Groen Led fixstuur
+Input_P2B = Button(4)# Input_P2B (GPIO 4) - Input: Relais 1 (for detecting state of relay)
+P3A = LED(17)# P3A (GPIO 17) - Output: Eerste kortsluiting (820)
+P3C = LED(27)# P3C (GPIO 27) - Output: Tweede kortsluiting (240)
+P1_2 = LED(22)# P1.2 (GPIO 22) - Output: Bridge wire
+LED_RED_OUT = Button(10)# LED_RED_OUT (GPIO 10) - Input: Rood led pcb
+LED_YELLOW_OUT = Button(9)# LED_YELLOW_OUT (GPIO 9) - Input: Led geel pcb
+LED_GREEN2_OUT = Button(11)# LED_GREEN2_OUT (GPIO 11) - Input: Led groen2 pcb
+LED_GREEN1_OUT = Button(0)# LED_GREEN1_OUT (GPIO 0) - Input: Led groen1 pcb
+BUTTON_2 = LED(5)# BUTTON 2 (GPIO 5) - Output: Knop 2
+BUTTON_1 = LED(6)# BUTTON 1 (GPIO 6) - Output: Knop 1
+R_24V = LED(26)# R_24V (GPIO 26) - Output: 24V extern
+UART_RX = Button(14)# UART RX (GPIO 14) - UART Input: Uart RX
+UART_TX = Button(15)# UART TX (GPIO 15) - UART Output: Uart TX
+RS485 = LED(23)# RS485 (GPIO 23) - Output: Aansturing
+RS485A = Button(24)# RS485A (GPIO 24) - Input: Indicatie Aansturing
+P1_1 = LED(25)# P1.1 (GPIO 25) - Output: Bridge wire
+INPUT_P2C = Button(1)# INPUT_P2C (GPIO 1) - Input: Relais 1
+INPUT_P4B = Button(12)# INPUT_P4B (GPIO 12) - Input: Relais 2
+INPUT_P4C = Button(16)# INPUT_P4C (GPIO 16) - Input: Relais 2
 
 #functies
 # Variabele om het knipperen te stoppen
@@ -110,7 +66,6 @@ def lees_serienummer():
 
 def stap_uitvoeren(stap_nummer):
     print(f"Stap {stap_nummer}: uitvoering...")
-
     try:
         if stap_nummer == 1:
             BUTTON_1.on()
@@ -129,27 +84,21 @@ def stap_uitvoeren(stap_nummer):
         elif stap_nummer == 3:
             starttijd = time.time()
             gevonden = False
-
             while time.time() - starttijd < 10:
-
                 BUTTON_1.on()
                 sleep(1)
                 BUTTON_1.off()
-
                 mode = lees_serienummer()
                 if mode == "S03":
                     gevonden = True
                     break
-
                 BUTTON_2.on()
                 sleep(1)
                 BUTTON_2.off()
-
                 mode = lees_serienummer()
                 if mode == "S03":
                     gevonden = True
                     break
-
                 if not gevonden:
                     raise TimeoutError("Timeout: 'S03' niet gevonden binnen 10 seconden.")
 
@@ -163,7 +112,6 @@ def stap_uitvoeren(stap_nummer):
             print("Stap 5: Zet P3A aan.")
             P3A.on()
             sleep(0.5)  # Wacht even voor stabiliteit
-
             if LED_GREEN1_OUT.is_pressed:
                 print("Stap 5: Groene LED is aan na activeren P3A.")
             else:
@@ -171,8 +119,7 @@ def stap_uitvoeren(stap_nummer):
         elif stap_nummer == 6:
             print("Stap 6: Zet P3A uit.")
             P3A.off()
-            sleep(0.5)  # Geef tijd voor verandering
-
+            sleep(0.5)
             if LED_RED_OUT.is_pressed and LED_GREEN2_OUT.is_pressed:
                 print("Stap 6: Rood en tweede groene LED zijn aan.")
             else:
@@ -183,7 +130,6 @@ def stap_uitvoeren(stap_nummer):
             P3A.on()
             P3C.on()
             sleep(0.5)
-
             if LED_YELLOW_OUT.is_pressed:
                 print("Stap 7: Gele LED is aan.")
             else:
@@ -194,7 +140,6 @@ def stap_uitvoeren(stap_nummer):
             P3A.off()
             P3C.off()
             sleep(0.5)
-
             print("Stap 8: Wachten op UART 'S02', indien niet: Button 1 pulsen.")
             timeout = 10
             start_time = time()
@@ -221,34 +166,27 @@ def stap_uitvoeren(stap_nummer):
             print("Stap 10: Zet beide bridge wires aan (P1_1 en P1_2).")
             P1_1.on()
             P1_2.on()
-            sleep(0.5)  # wacht even voor stabilisatie
-
+            sleep(0.5)
             print("Stap 10: Controleer LED groen2 en rood.")
             if not LED_GREEN2_OUT.is_active:
                 raise ValueError("Stap 10 Fout: Groene LED 2 is niet actief.")
             if not LED_RED_OUT.is_active:
                 raise ValueError("Stap 10 Fout: Rode LED is niet actief.")
-
             print("Stap 10: Beide LEDs zijn actief.")
 
         elif stap_nummer == 11:
             print("Stap 11: Controleer of UART terug op S03 staat.")
-
             start_time = time()
             serienummer = lees_serienummer()
-
             while serienummer != "S03":
                 if time() - start_time > 10:
                  raise TimeoutError("Stap 11 Fout: Timeout bij wachten op S03 via UART.")
-        
             print(f"Stap 11: Serienummer is {serienummer}, druk BUTTON_1 in en probeer opnieuw.")
             BUTTON_1.on()
             sleep(0.5)
             BUTTON_1.off()
             sleep(0.5)
-
             serienummer = lees_serienummer()
-
             print("Stap 11: Correcte serienummer S03 ontvangen.")
 
         elif stap_nummer == 12:
@@ -256,7 +194,7 @@ def stap_uitvoeren(stap_nummer):
             if not LED_GREEN1_OUT.is_active:
                 raise ValueError("Stap 12 Fout: Groene LED 1 is niet actief.")
             print("Stap 12: Groene LED 1 is correct actief.")
-        # ...
+            
         elif stap_nummer == 13:
             print("Stap 13: Zet bridge wires (P1_1 en P1_2) en R_24V uit.")
             P1_1.off()
@@ -267,20 +205,15 @@ def stap_uitvoeren(stap_nummer):
 
         elif stap_nummer == 14:
             print("Stap 14: Loggen van de resultaten.")
-
             # Verkrijg het huidige serienummer
             serienummer = 153
-
             # Bepaal de status van de stappen
             status = "correct"  # Hier zou je later de status kunnen uitbreiden als dat nodig is
-
             # Verkrijg de huidige tijd en datum
             huidige_tijd = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
             # Loggen naar bestand
             with open("/pad/naar/logbestand.txt", "a") as log_file:
                 log_file.write(f"{huidige_tijd} | Serienummer: {serienummer} | Status: {status} - Alle stappen waren succesvol\n")
-
             print(f"Stap 14: Loggen succesvol. Logbestand bijgewerkt.")
     except Exception as e:
         print(f"!!! FOUT bij stap {stap_nummer}: {e}")
@@ -288,11 +221,9 @@ def stap_uitvoeren(stap_nummer):
 
 def main():
     print("Programma gestart. LED-statusindicatie actief.")
-
     # Start knipperende LEDs in aparte thread
     led_thread = threading.Thread(target=knipper_leds)
     led_thread.start()
-
     try:
         for stap in range(1, 15):  # Stappen 1 t.e.m. 14
             stap_uitvoeren(stap)
