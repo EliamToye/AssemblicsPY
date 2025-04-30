@@ -111,20 +111,26 @@ def process_input():
 
     input_upper = user_input.upper()
 
-    if input_upper in ["PIM", "RIS"]:
-        last_option = "1" if input_upper == "PIM" else "2"
+    if "FIK7122" in input_upper:
+        last_option = "1"
         log_output.delete('1.0', tk.END)
-        log_output.insert(tk.END, f"✅ Optie '{input_upper}' gekozen. Wacht op serienummer...\n")
-        log_output.see(tk.END)
-        active_option_label.config(text=f"Actieve optie: {input_upper}")
+        log_output.insert(tk.END, f"✅ Type 'FIK7122' gedetecteerd. Wacht op serienummer...\n")
+        active_option_label.config(text="Actieve optie: FIK7122")
+
+    elif "FIKRISP" in input_upper:
+        last_option = "2"
+        log_output.delete('1.0', tk.END)
+        log_output.insert(tk.END, f"✅ Type 'FIKRISP' gedetecteerd. Wacht op serienummer...\n")
+        active_option_label.config(text="Actieve optie: FIKRISP")
 
     elif last_option and re.match(r"^[A-Za-z0-9\-]+$", user_input):
         log_output.insert(tk.END, f"📦 Serienummer ingevoerd: {user_input}\n")
         run_script(last_option, serienummer=user_input)
 
     else:
-        log_output.insert(tk.END, "❌ Ongeldige input. Typ eerst PIM of RIS.\n")
+        log_output.insert(tk.END, "❌ Ongeldige input. Scan eerst een code met FIK7122 of FIKRISP.\n")
 
+    log_output.see(tk.END)
     input_entry.delete(0, tk.END)
 
 def clear_log():
