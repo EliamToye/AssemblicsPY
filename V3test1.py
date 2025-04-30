@@ -355,7 +355,22 @@ def stap_8():
         log_result("fout", f"Fout in stap 8: {str(e)}")
         return False
     
+def stap_9():
+    try:
+        print("Stap 9: Controle of groene LED 2 brandt...")
 
+        if LED_GREEN2_OUT.value:
+            log_result("correct", "Groene LED 2 brandt.")
+            return True
+        else:
+            log_result("fout", "Groene LED 2 brandt niet.")
+            return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 9: {str(e)}")
+        return False
+    
+    
 # Start het script
 if __name__ == "__main__":
     main()
