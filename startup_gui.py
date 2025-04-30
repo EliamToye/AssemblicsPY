@@ -105,30 +105,28 @@ def process_input():
     if not user_input:
         return
 
-    if user_input.lower() == "exit":
-        root.quit()
-        return
-
     input_upper = user_input.upper()
 
-    if "FIK7122" in input_upper:
+    # Eerst detecteren of het een optie is (PIM of RISP)
+    if "PIM" in input_upper:
         last_option = "1"
         log_output.delete('1.0', tk.END)
-        log_output.insert(tk.END, f"✅ Type 'FIK7122' gedetecteerd. Wacht op serienummer...\n")
-        active_option_label.config(text="Actieve optie: FIK7122")
+        log_output.insert(tk.END, f"✅ PIM gedetecteerd. Wacht op serienummer...\n")
+        active_option_label.config(text="Actieve optie: PIM")
 
-    elif "FIKRISP" in input_upper:
+    elif "RISP" in input_upper:
         last_option = "2"
         log_output.delete('1.0', tk.END)
-        log_output.insert(tk.END, f"✅ Type 'FIKRISP' gedetecteerd. Wacht op serienummer...\n")
-        active_option_label.config(text="Actieve optie: FIKRISP")
+        log_output.insert(tk.END, f"✅ RISP gedetecteerd. Wacht op serienummer...\n")
+        active_option_label.config(text="Actieve optie: RISP")
 
+    # Daarna controleren of het een serienummer is
     elif last_option and re.match(r"^[A-Za-z0-9\-]+$", user_input):
         log_output.insert(tk.END, f"📦 Serienummer ingevoerd: {user_input}\n")
         run_script(last_option, serienummer=user_input)
 
     else:
-        log_output.insert(tk.END, "❌ Ongeldige input. Scan eerst een code met FIK7122 of FIKRISP.\n")
+        log_output.insert(tk.END, "❌ Ongeldige input. Scan eerst (PIM of RISP).\n")
 
     log_output.see(tk.END)
     input_entry.delete(0, tk.END)
@@ -157,7 +155,7 @@ root.geometry("600x400")
 frame = ttk.Frame(root, padding="10")
 frame.pack(fill=tk.BOTH, expand=True)
 
-label = ttk.Label(frame, text="Voer in (PIM of RIS) & dan serienummer :")
+label = ttk.Label(frame, text="Voer in module in & dan serienummer :")
 label.pack(pady=5)
 
 input_entry = ttk.Entry(frame)
