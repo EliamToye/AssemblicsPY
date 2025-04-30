@@ -98,11 +98,6 @@ def doorloop_stappen():
     if not stap_14():
         return
     
-    if not stap_15():
-        return
-    
-    if not stap_16():
-        return
     print("Stappen beëindigd.")
     
 def lees_uart(poort="/dev/serial0", baudrate=9600, timeout=1):
