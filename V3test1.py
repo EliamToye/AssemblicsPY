@@ -193,6 +193,38 @@ def stap_2():
         return False
     
     
+def stap_3():
+    try:
+        print("Stap 3: BUTTON_2 aan, wacht op UART = S03...")
+
+        # Zet BUTTON_2 aan
+        BUTTON_2.on()
+        sleep(0.5)  # kleine vertraging
+
+        max_herhalingen = 10  # maximaal aantal pogingen om eindeloos lussen te vermijden
+        pogingen = 0
+
+        while pogingen < max_herhalingen:
+            uart_data = lees_uart()
+
+            if uart_data == "S03":
+                log_result("correct", "UART status is S03 na drukken van BUTTON_2/BUTTON_1.")
+                return True
+            else:
+                log_result("fout", f"UART gaf '{uart_data}' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.")
+                BUTTON_1.on()
+                sleep(1)  # wacht even voor ESP update
+                BUTTON_1.off()
+                pogingen += 1
+
+        log_result("fout", "UART status werd niet 'S03' na meerdere pogingen.")
+        return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 3: {str(e)}")
+        return False
+    
+    
 
 # Start het script
 if __name__ == "__main__":
