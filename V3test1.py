@@ -171,6 +171,26 @@ def stap_1():
         log_result("fout", f"Fout in stap 1: {str(e)}")
         return False
 
+
+def stap_2():
+    try:
+        # Lees het serienummer via UART
+        serienummer = lees_uart()  # gebruik de bestaande lees_uart functie die je hebt
+
+        # Controleer of het serienummer correct is
+        if serienummer and serienummer == SERIENUMMER:  # vergelijk met verwachte serienummer
+            log_result("correct", f"Serienummer {serienummer} komt overeen.")
+            return True
+        else:
+            log_result("fout", f"Fout: Serienummer is {serienummer}, maar verwacht {SERIENUMMER}.")
+            return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 2: {str(e)}")
+        return False
+    
+    
+
 # Start het script
 if __name__ == "__main__":
     main()
