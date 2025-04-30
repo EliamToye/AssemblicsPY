@@ -2,6 +2,8 @@ from gpiozero import DigitalOutputDevice, DigitalInputDevice
 from time import sleep
 import signal
 import serial
+import datetime
+import os
 
 # Signaal-LED's
 signal_r = DigitalOutputDevice(2)   # GPIO 2
@@ -23,6 +25,10 @@ mc12 = DigitalOutputDevice(7)
 rs485 = DigitalOutputDevice(23)     # RS485 sturing
 rs485a = DigitalInputDevice(24)     # RS485 indicatie (input)
 R_24V = DigitalOutputDevice(26)# R_24V (GPIO 26) - Output: 24V extern
+
+# Stel serienummer globaal in (mag later dynamisch gemaakt worden)
+SERIENUMMER = "---"
+LOGBESTAND = "testlog.txt"
 
 # Exit netjes bij Ctrl+C
 def afsluiten():
@@ -53,35 +59,9 @@ def knipper_signalen(tijd=5, interval=0.5):
 def doorloop_stappen():
     print("Start stappen...")
 
-    mc21.on()
-    mc22.on()
-    print("MC2.1 en MC2.2 ingeschakeld.")
-    sleep(2)
+    if not stap_1_r24v_uart_check():
+        return  # Stop als stap 1 faalt
 
-    rs485.on()
-    print("RS485 aansturing ingeschakeld.")
-    sleep(1)
-
-    knipper_signalen(4)
-
-    mc11.on()
-    mc12.on()
-    print("MC1.1 en MC1.2 ingeschakeld.")
-    sleep(2)
-
-    # Lees inputs (voorbeeld)
-    print("LED-statussen:")
-    print("Rood:", led_red_out.value)
-    print("Geel:", led_yellow_out.value)
-    print("Groen 1:", led_green1_out.value)
-    print("Groen 2:", led_green2_out.value)
-
-    # Uitschakelen
-    mc21.off()
-    mc22.off()
-    mc11.off()
-    mc12.off()
-    rs485.off()
 
     print("Stappen beëindigd.")
     
@@ -100,7 +80,18 @@ def lees_uart(poort="/dev/serial0", baudrate=9600, timeout=1):
         print(f"[UART FOUT] {e}")
         return None
 
-# Functie 4: Main
+def log_result(status, stap_omschrijving):
+    tijdstip = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if status == "fout":
+        regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: fout | Fout op stap 1 - {stap_omschrijving}"
+    else:
+        regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: correct - {stap_omschrijving}"
+    
+    print(regel)
+    with open(LOGBESTAND, "a") as f:
+        f.write(regel + "\n")
+        
+# Functie 5: Main
 def main():
     try:
         doorloop_stappen()
@@ -108,6 +99,21 @@ def main():
         pass
     finally:
         afsluiten()
+
+
+def stap_1_r24v_uart_check():
+    print("Stap 1: Zet R_24V aan (GPIO 23 / RS485)...")
+    rs485.on()
+    sleep(0.5)
+
+    # Lees UART
+    uart_data = lees_uart()
+    if uart_data == SERIENUMMER:
+        log_result("correct", "Power up device met 24VDC en controle van module")
+        return True
+    else:
+        log_result("fout", "Power up device met 24VDC en controle van module")
+        return False
 
 # Start het script
 if __name__ == "__main__":
