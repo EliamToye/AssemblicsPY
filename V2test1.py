@@ -200,7 +200,7 @@ def stap_uitvoeren(stap_nummer):
             P1_1.off()
             P1_2.off()
             R_24V.off()
-            sleep(0.5)  # korte stabilisatietijd
+            sleep(0.5)
             print("Stap 13: Bridge wires en R_24V zijn uitgeschakeld.")
 
         elif stap_nummer == 14:
