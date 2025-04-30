@@ -10,24 +10,25 @@ import threading
 signal_r = DigitalOutputDevice(2)   # GPIO 2
 signal_g = DigitalOutputDevice(3)   # GPIO 3
 
-# Voorbeeld inputs (kun je verder invullen als je wil)
-led_red_out = DigitalInputDevice(10)
-led_yellow_out = DigitalInputDevice(9)
-led_green2_out = DigitalInputDevice(11)
-led_green1_out = DigitalInputDevice(0)
-
-# Magneten (outputs)
-mc21 = DigitalOutputDevice(13)
-mc22 = DigitalOutputDevice(19)
-mc11 = DigitalOutputDevice(8)
-mc12 = DigitalOutputDevice(7)
-
-# RS485 (output + input)
-rs485 = DigitalOutputDevice(23)     # RS485 sturing
-rs485a = DigitalInputDevice(24)     # RS485 indicatie (input)
+Input_P2B = DigitalInputDevice(4)# Input_P2B (GPIO 4) - Input: Relais 1 (for detecting state of relay)
+P3A = DigitalOutputDevice(17)# P3A (GPIO 17) - Output: Eerste kortsluiting (820)
+P3C = DigitalOutputDevice(27)# P3C (GPIO 27) - Output: Tweede kortsluiting (240)
+P1_2 = DigitalOutputDevice(22)# P1.2 (GPIO 22) - Output: Bridge wire
+LED_RED_OUT = DigitalInputDevice(10)# LED_RED_OUT (GPIO 10) - Input: Rood led pcb
+LED_YELLOW_OUT = DigitalInputDevice(9)# LED_YELLOW_OUT (GPIO 9) - Input: Led geel pcb
+LED_GREEN2_OUT = DigitalInputDevice(11)# LED_GREEN2_OUT (GPIO 11) - Input: Led groen2 pcb
+LED_GREEN1_OUT = DigitalInputDevice(0)# LED_GREEN1_OUT (GPIO 0) - Input: Led groen1 pcb
+BUTTON_2 = DigitalOutputDevice(5)# BUTTON 2 (GPIO 5) - Output: Knop 2
+BUTTON_1 = DigitalOutputDevice(6)# BUTTON 1 (GPIO 6) - Output: Knop 1
 R_24V = DigitalOutputDevice(26)# R_24V (GPIO 26) - Output: 24V extern
+RS485 = DigitalOutputDevice(23)# RS485 (GPIO 23) - Output: Aansturing
+RS485A = DigitalInputDevice(24)# RS485A (GPIO 24) - Input: Indicatie Aansturing
+P1_1 = DigitalOutputDevice(25)# P1.1 (GPIO 25) - Output: Bridge wire
+INPUT_P2C = DigitalInputDevice(1)# INPUT_P2C (GPIO 1) - Input: Relais 1
+INPUT_P4B = DigitalInputDevice(12)# INPUT_P4B (GPIO 12) - Input: Relais 2
+INPUT_P4C = DigitalInputDevice(16)# INPUT_P4C (GPIO 16) - Input: Relais 2
 
-# Stel serienummer globaal in (mag later dynamisch gemaakt worden)
+# variabelen
 SERIENUMMER = "---"
 LOGBESTAND = "testlog.txt"
 
@@ -35,11 +36,6 @@ LOGBESTAND = "testlog.txt"
 def afsluiten():
     signal_r.off()
     signal_g.off()
-    mc21.off()
-    mc22.off()
-    mc11.off()
-    mc12.off()
-    rs485.off()
     print("\nGPIO netjes uitgeschakeld. Programma gestopt.")
 
 # Functie 1: Knipper met Signal R en G
@@ -60,25 +56,52 @@ def knipper_signalen(tijd=5, interval=0.5):
 def doorloop_stappen():
     print("Start stappen...")
 
-    if not stap_1_r24v_uart_check():
+    if not stap_1():
         return
 
-    if not stap_2_rs485_check():
+    if not stap_2():
         return
 
-    if not stap_3_magneet_fixstuur_check():
+    if not stap_3():
         return
     
-    if not stap_4_groen_led1_check():
+    if not stap_4():
         return
     
-    if not stap_5_rode_led_pcb_check():
+    if not stap_5():
         return
     
-    if not stap_6_magneet_roodled_check():
+    if not stap_6():
         return
     
-    if not stap_7_afleggen():
+    if not stap_7():
+        return
+    
+    if not stap_8():
+        return
+    
+    if not stap_9():
+        return
+    
+    if not stap_10():
+        return
+    
+    if not stap_11():
+        return
+    
+    if not stap_12():
+        return
+    
+    if not stap_13():
+        return
+    
+    if not stap_14():
+        return
+    
+    if not stap_15():
+        return
+    
+    if not stap_16():
         return
     print("Stappen beëindigd.")
     
@@ -125,111 +148,6 @@ def main():
         afsluiten()
 
 
-def stap_1_r24v_uart_check():
-    print("Stap 1: Zet R_24V aan (GPIO 23 / RS485)...")
-    R_24V.on()
-    sleep(0.5)
-
-    # Lees UART
-    uart_data = lees_uart()
-    if uart_data == SERIENUMMER:
-        log_result("correct", "Stap 1 : Power up device met 24VDC en controle van module")
-        return True
-    else:
-        log_result("fout", "Stap 1 : Power up device met 24VDC en controle van module")
-        return False
-
-def stap_2_rs485_check():
-    print("Stap 2: Zet RS485 aan en controleer RS485A + Gele LED...")
-    rs485.on()
-    sleep(0.5)
-
-    rs485a_status = rs485a.value
-    yellow_led_status = led_yellow_out.value
-
-    if rs485a_status == 1 and yellow_led_status == 1:
-        log_result("correct", "Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt")
-        return True
-    else:
-        log_result("fout", "Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt")
-        return False
-    
-def stap_3_magneet_fixstuur_check():
-    print("Stap 3: Zet MC1.1 en MC2.1 aan, daarna MC1.2 en controleer groene fixstuur LED...")
-    
-    mc11.on()
-    mc21.on()
-    sleep(0.5)
-    mc12.on()
-    sleep(0.5)
-
-    green_led_status = led_green1_out.value
-
-    if green_led_status == 0:
-        log_result("correct", "Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt")
-        return True
-    else:
-        log_result("fout", "Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt")
-        return False
-    
-def stap_4_groen_led1_check():
-    print("Stap 4: Zet MC1.2 uit, MC2.2 aan en controleer of groene LED 1 brandt...")
-    
-    mc12.off()
-    mc22.on()
-    sleep(0.5)
-
-    groen_led1_status = led_green1_out.value
-
-    if groen_led1_status == 1:
-        log_result("correct", "Stap 4 : MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1")
-        return True
-    else:
-        log_result("fout", "Stap 4 : MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1")
-        return False    
-
-def stap_5_rode_led_pcb_check():
-    print("Stap 5: Controleer of de rode LED op de PCB brandt...")
-
-    rood_led_status = led_red_out.value
-
-    if rood_led_status == 1:
-        log_result("correct", "Stap 5 : Controle of de rode LED op de PCB brandt")
-        return True
-    else:
-        log_result("fout", "Stap 5 : Controle of de rode LED op de PCB brandt")
-        return False
-    
-def stap_6_magneet_roodled_check():
-    print("Stap 6: Zet MC2.2 uit, MC1.2 aan en controleer of rode LED op PCB brandt...")
-
-    mc22.off()
-    mc12.on()
-    sleep(0.5)
-
-    rood_led_status = led_red_out.value
-
-    if rood_led_status == 1:
-        log_result("correct", "Stap 6 : MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB")
-        return True
-    else:
-        log_result("fout", "Stap 6 : MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB")
-        return False
-    
-def stap_7_afleggen():
-    print("Stap 7: Schakel alle uitgangen uit...")
-
-    mc11.off()
-    mc12.off()
-    mc21.off()
-    mc22.off()
-    signal_r.off()
-    signal_g.off()
-    rs485.off()
-    R_24V.off()
-
-    log_result("correct", "Stap 7 : Alle uitgangen uitgeschakeld")
-    return True
 
 # Start het script
 if __name__ == "__main__":
