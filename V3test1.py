@@ -324,6 +324,37 @@ def stap_7():
         return False
     
     
+def stap_8():
+    try:
+        print("Stap 8: P3A en P3C uit, controle op UART = 'S02'...")
+
+        P3A.off()
+        P3C.off()
+        sleep(0.5)
+
+        poging = 0
+        while True:
+            data = lees_uart()
+            if data == "S02":
+                log_result("correct", "UART geeft 'S02' door.")
+                return True
+
+            poging += 1
+            print(f"[Stap 8] Poging {poging}: UART was '{data}', BUTTON_1 schakelen...")
+
+            BUTTON_1.on()
+            sleep(0.2)
+            BUTTON_1.off()
+            sleep(1)  # wacht even voor volgende poging
+
+            if poging > 10:
+                log_result("fout", "Maximale pogingen bereikt zonder 'S02' van UART.")
+                return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 8: {str(e)}")
+        return False
+    
 
 # Start het script
 if __name__ == "__main__":
