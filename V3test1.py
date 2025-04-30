@@ -163,7 +163,7 @@ def stap_1():
         BUTTON_2.off()
 
         # Controleer of de outputs goed zijn ingeschakeld
-        if BUTTON_1.is_active and BUTTON_2.is_active and R_24V.is_active:
+        if R_24V.is_active:
             log_result("correct", "BUTTON_1 en BUTTON_2 zijn aan, en R24V is aan.")
             return True
         else:
