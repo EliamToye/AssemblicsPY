@@ -200,6 +200,8 @@ def stap_3():
         # Zet BUTTON_2 aan
         BUTTON_2.on()
         sleep(0.5)  # kleine vertraging
+        BUTTON_2.off()
+        sleep(0.5)  # kleine vertraging
 
         max_herhalingen = 10  # maximaal aantal pogingen om eindeloos lussen te vermijden
         pogingen = 0
