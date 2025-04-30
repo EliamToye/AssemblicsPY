@@ -68,6 +68,9 @@ def doorloop_stappen():
     if not stap_3_magneet_fixstuur_check():
         return
     
+    if not stap_4_groen_led1_check():
+        return
+    
     
     print("Stappen beëindigd.")
     
@@ -147,14 +150,31 @@ def stap_3_magneet_fixstuur_check():
 
     green_led_status = led_green1_out.value
 
-    if green_led_status == 1:
+    if green_led_status == 0:
         log_result("correct", "Magneetcontacten schakelen en controle of groene fixstuur LED brandt")
         return True
     else:
         log_result("fout", "Magneetcontacten schakelen en controle of groene fixstuur LED brandt")
         return False
     
+def stap_4_groen_led1_check():
+    print("Stap 4: Zet MC1.2 uit, MC2.2 aan en controleer of groene LED 1 brandt...")
     
+    mc12.off()
+    mc22.on()
+    sleep(0.5)
+
+    groen_led1_status = led_green1_out.value
+
+    if groen_led1_status == 1:
+        log_result("correct", "MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1")
+        return True
+    else:
+        log_result("fout", "MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1")
+        return False    
+
+
+
 # Start het script
 if __name__ == "__main__":
     main()
