@@ -23,8 +23,6 @@ LED_GREEN1_OUT = Button(0)# LED_GREEN1_OUT (GPIO 0) - Input: Led groen1 pcb
 BUTTON_2 = LED(5)# BUTTON 2 (GPIO 5) - Output: Knop 2
 BUTTON_1 = LED(6)# BUTTON 1 (GPIO 6) - Output: Knop 1
 R_24V = LED(26)# R_24V (GPIO 26) - Output: 24V extern
-UART_RX = Button(14)# UART RX (GPIO 14) - UART Input: Uart RX
-UART_TX = Button(15)# UART TX (GPIO 15) - UART Output: Uart TX
 RS485 = LED(23)# RS485 (GPIO 23) - Output: Aansturing
 RS485A = Button(24)# RS485A (GPIO 24) - Input: Indicatie Aansturing
 P1_1 = LED(25)# P1.1 (GPIO 25) - Output: Bridge wire
@@ -178,9 +176,12 @@ def stap_uitvoeren(stap_nummer):
             print("Stap 11: Controleer of UART terug op S03 staat.")
             start_time = time()
             serienummer = lees_serienummer()
-            while serienummer != "S03":
-                if time() - start_time > 10:
-                 raise TimeoutError("Stap 11 Fout: Timeout bij wachten op S03 via UART.")
+            while time() - start_time < 10:
+                serienummer = lees_serienummer()
+                if serienummer == "S03":
+                    break
+                else:
+                    raise TimeoutError("Stap 11 Fout: Timeout bij wachten op S03 via UART.")
             print(f"Stap 11: Serienummer is {serienummer}, druk BUTTON_1 in en probeer opnieuw.")
             BUTTON_1.on()
             sleep(0.5)
@@ -212,7 +213,7 @@ def stap_uitvoeren(stap_nummer):
             # Verkrijg de huidige tijd en datum
             huidige_tijd = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             # Loggen naar bestand
-            with open("/pad/naar/logbestand.txt", "a") as log_file:
+            with open("/home/pi/testlog.txt", "a") as log_file:
                 log_file.write(f"{huidige_tijd} | Serienummer: {serienummer} | Status: {status} - Alle stappen waren succesvol\n")
             print(f"Stap 14: Loggen succesvol. Logbestand bijgewerkt.")
     except Exception as e:
@@ -220,21 +221,26 @@ def stap_uitvoeren(stap_nummer):
         sys.exit(1)
 
 def main():
-    print("Programma gestart. LED-statusindicatie actief.")
-    # Start knipperende LEDs in aparte thread
-    led_thread = threading.Thread(target=knipper_leds)
-    led_thread.start()
+    print("Programma gestart. LED-statusindicatie...")
+
+    # Start knipper-thread
+    global knipperen
+    knipper_thread = threading.Thread(target=knipper_leds)
+    knipper_thread.start()
+
     try:
-        for stap in range(1, 15):  # Stappen 1 t.e.m. 14
+        for stap in range(1, 15):  # Voer alle 14 stappen uit
             stap_uitvoeren(stap)
-    except KeyboardInterrupt:
-        print("Programma onderbroken door gebruiker.")
+
+        print("Alle stappen succesvol doorlopen.")
+
+    except Exception as e:
+        print(f"FOUT tijdens testsequentie: {e}")
+
     finally:
-        # Stop de knipperende LEDs
-        global knipperen
         knipperen = False
-        led_thread.join()
-        print("Programma correct afgesloten.")
+        knipper_thread.join()
+        print("Programma beëindigd.")
 
 if __name__ == "__main__":
     main()
