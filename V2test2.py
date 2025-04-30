@@ -77,7 +77,8 @@ def doorloop_stappen():
     if not stap_6_magneet_roodled_check():
         return
     
-    
+    if not stap_7_afleggen():
+        return
     print("Stappen beëindigd.")
     
 def lees_uart(poort="/dev/serial0", baudrate=9600, timeout=1):
@@ -207,7 +208,20 @@ def stap_6_magneet_roodled_check():
         log_result("fout", "MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB")
         return False
     
+def stap_7_afleggen():
+    print("Stap 7: Schakel alle uitgangen uit...")
 
+    mc11.off()
+    mc12.off()
+    mc21.off()
+    mc22.off()
+    signal_r.off()
+    signal_g.off()
+    rs485.off()
+    R_24V.off()
+
+    log_result("correct", "Alle uitgangen uitgeschakeld")
+    return True
 
 # Start het script
 if __name__ == "__main__":
