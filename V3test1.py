@@ -296,6 +296,34 @@ def stap_6():
         return False
     
     
+def stap_7():
+    try:
+        print("Stap 7: P3A en P3C aan, controle groene LED 2 en gele LED...")
+
+        P3A.on()
+        P3C.on()
+        sleep(0.5)  # hardware de tijd geven om te schakelen
+
+        groen_status = LED_GREEN2_OUT.value
+        geel_status = LED_YELLOW_OUT.value
+
+        if groen_status and geel_status:
+            log_result("correct", "Groene LED 2 en gele LED branden beide.")
+            return True
+        else:
+            foutmelding = "Fout: "
+            if not groen_status:
+                foutmelding += "Groene LED 2 brandt niet. "
+            if not geel_status:
+                foutmelding += "Gele LED brandt niet."
+            log_result("fout", foutmelding.strip())
+            return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 7: {str(e)}")
+        return False
+    
+    
 
 # Start het script
 if __name__ == "__main__":
