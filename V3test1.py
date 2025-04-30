@@ -124,8 +124,7 @@ def log_result(status, stap_omschrijving):
     tijdstip = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if status == "fout":
         regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: fout | {stap_omschrijving}"
-    else:
-        regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: correct - {stap_omschrijving}"
+
     
     print(regel)
     with open(LOGBESTAND, "a") as f:
@@ -370,7 +369,119 @@ def stap_9():
         log_result("fout", f"Fout in stap 9: {str(e)}")
         return False
     
+def stap_10():
+    try:
+        print("Stap 10: Beide bridgewires aan, controle op groene LED 2 en rode LED...")
+
+        P1_1.on()
+        P1_2.on()
+        sleep(0.5)  # even wachten voor stabilisatie
+
+        groen = LED_GREEN2_OUT.value
+        rood = LED_RED_OUT.value
+
+        if groen and rood:
+            log_result("correct", "Bridgewires aan: groene LED 2 en rode LED branden.")
+            return True
+        else:
+            foutmelding = "Bridgewires actief, maar status klopt niet:"
+            if not groen:
+                foutmelding += " groene LED 2 uit."
+            if not rood:
+                foutmelding += " rode LED uit."
+            log_result("fout", foutmelding)
+            return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 10: {str(e)}")
+        return False
     
+def stap_11():
+    try:
+        print("Stap 11: Bridgewires uit, controle op UART = 'S03'...")
+
+        P1_1.off()
+        P1_2.off()
+        sleep(0.5)
+
+        poging = 0
+        while True:
+            data = lees_uart()
+            if data == "S03":
+                log_result("correct", "UART geeft 'S03' door.")
+                return True
+
+            poging += 1
+            print(f"[Stap 11] Poging {poging}: UART was '{data}', BUTTON_1 schakelen...")
+
+            BUTTON_1.on()
+            sleep(0.2)
+            BUTTON_1.off()
+            sleep(1)  # wacht voor volgende poging
+
+            if poging > 10:
+                log_result("fout", "Maximale pogingen bereikt zonder 'S03' van UART.")
+                return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 11: {str(e)}")
+        return False
+    
+def stap_12():
+    try:
+        print("Stap 12: Controle of groene LED 2 brandt...")
+
+        if LED_GREEN2_OUT.value:
+            log_result("correct", "Groene LED 2 brandt.")
+            return True
+        else:
+            log_result("fout", "Groene LED 2 brandt niet.")
+            return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 12: {str(e)}")
+        return False
+    
+def stap_13():
+    try:
+        print("Stap 13: Zet alle uitgangen op 0 voor veiligheid...")
+
+        # Zet alle relevante GPIO-uitgangen uit
+        P1_1.off()
+        P1_2.off()
+        P3A.off()
+        P3C.off()
+        BUTTON_1.off()
+        BUTTON_2.off()
+        R_24V.off()
+        RS485.off()
+
+        print("Alle uitgangen zijn uitgeschakeld.")
+        log_result("correct", "Alle uitgangen zijn op 0 gezet voor veiligheid.")
+        return True
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 13: {str(e)}")
+        return False    
+
+def stap_14():
+    try:
+        print("Stap 14: Loggen van succesbericht voor de PCB...")
+
+        # Als alle stappen correct zijn uitgevoerd, log dan dit succesbericht
+        succesbericht = f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | Serienummer: {SERIENUMMER} | Status: correct - PCB"
+
+        # Schrijf het succesbericht naar het logbestand
+        with open(LOGBESTAND, "a") as f:
+            f.write(succesbericht + "\n")
+
+        print(succesbericht)
+        return True
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 14: {str(e)}")
+        return False
+
 # Start het script
 if __name__ == "__main__":
     main()
