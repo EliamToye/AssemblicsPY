@@ -158,6 +158,9 @@ def stap_1():
 
         # Wacht even om de instellingen te laten doorvoeren (indien nodig)
         sleep(1)
+        
+        BUTTON_1.off()
+        BUTTON_2.off()
 
         # Controleer of de outputs goed zijn ingeschakeld
         if BUTTON_1.is_active and BUTTON_2.is_active and R_24V.is_active:
