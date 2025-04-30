@@ -225,6 +225,30 @@ def stap_3():
         return False
     
     
+def stap_4():
+    try:
+        print("Stap 4: Controleer groene LED 2 en gele LED...")
+
+        groen_ok = LED_GREEN2_OUT.value
+        geel_ok = LED_YELLOW_OUT.value
+
+        if groen_ok and geel_ok:
+            log_result("correct", "Groene LED 2 en gele LED branden.")
+            return True
+        else:
+            foutmelding = "Fout: "
+            if not groen_ok:
+                foutmelding += "Groene LED 2 brandt niet. "
+            if not geel_ok:
+                foutmelding += "Gele LED brandt niet."
+            log_result("fout", foutmelding.strip())
+            return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 4: {str(e)}")
+        return False
+    
+    
 
 # Start het script
 if __name__ == "__main__":
