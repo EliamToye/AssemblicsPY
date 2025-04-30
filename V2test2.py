@@ -173,6 +173,18 @@ def stap_4_groen_led1_check():
         log_result("fout", "MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1")
         return False    
 
+def stap_5_rode_led_pcb_check():
+    print("Stap 5: Controleer of de rode LED op de PCB brandt...")
+
+    rood_led_status = led_red_out.value
+
+    if rood_led_status == 1:
+        log_result("correct", "Controle of de rode LED op de PCB brandt")
+        return True
+    else:
+        log_result("fout", "Controle of de rode LED op de PCB brandt")
+        return False
+    
 
 
 # Start het script
