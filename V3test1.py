@@ -251,6 +251,51 @@ def stap_4():
         return False
     
     
+def stap_5():
+    try:
+        print("Stap 5: P3A aan, controle groene LED 2...")
+
+        P3A.on()
+        sleep(0.5)  # geef de hardware een halve seconde om te reageren
+
+        if LED_GREEN2_OUT.value:
+            log_result("correct", "Groene LED 2 brandt na inschakelen P3A.")
+            return True
+        else:
+            log_result("fout", "Groene LED 2 brandt niet na inschakelen P3A.")
+            return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 5: {str(e)}")
+        return False
+    
+def stap_6():
+    try:
+        print("Stap 6: P3A uit, controle groene LED 2 en rode LED...")
+
+        P3A.off()
+        sleep(0.5)  # geef de hardware tijd om te schakelen
+
+        groen_status = LED_GREEN2_OUT.value
+        rood_status = LED_RED_OUT.value
+
+        if groen_status and rood_status:
+            log_result("correct", "Groene LED 2 en rode LED branden beide.")
+            return True
+        else:
+            foutmelding = "Fout: "
+            if not groen_status:
+                foutmelding += "Groene LED 2 brandt niet. "
+            if not rood_status:
+                foutmelding += "Rode LED brandt niet."
+            log_result("fout", foutmelding.strip())
+            return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 6: {str(e)}")
+        return False
+    
+    
 
 # Start het script
 if __name__ == "__main__":
