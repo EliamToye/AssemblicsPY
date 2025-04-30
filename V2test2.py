@@ -65,6 +65,10 @@ def doorloop_stappen():
     if not stap_2_rs485_check():
         return
 
+    if not stap_3_magneet_fixstuur_check():
+        return
+    
+    
     print("Stappen beëindigd.")
     
 def lees_uart(poort="/dev/serial0", baudrate=9600, timeout=1):
@@ -132,7 +136,25 @@ def stap_2_rs485_check():
         log_result("fout", "RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt")
         return False
     
+def stap_3_magneet_fixstuur_check():
+    print("Stap 3: Zet MC1.1 en MC2.1 aan, daarna MC1.2 en controleer groene fixstuur LED...")
+    
+    mc11.on()
+    mc21.on()
+    sleep(0.5)
+    mc12.on()
+    sleep(0.5)
 
+    green_led_status = led_green1_out.value
+
+    if green_led_status == 1:
+        log_result("correct", "Magneetcontacten schakelen en controle of groene fixstuur LED brandt")
+        return True
+    else:
+        log_result("fout", "Magneetcontacten schakelen en controle of groene fixstuur LED brandt")
+        return False
+    
+    
 # Start het script
 if __name__ == "__main__":
     main()
