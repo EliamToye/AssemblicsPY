@@ -147,7 +147,29 @@ def main():
     finally:
         afsluiten()
 
+def stap_1():
+    try:
+        # Zet BUTTON_1 en BUTTON_2 aan
+        BUTTON_1.on()
+        BUTTON_2.on()
+        
+        # Zet R24V aan
+        R_24V.on()
 
+        # Wacht even om de instellingen te laten doorvoeren (indien nodig)
+        sleep(1)
+
+        # Controleer of de outputs goed zijn ingeschakeld
+        if BUTTON_1.is_active and BUTTON_2.is_active and R_24V.is_active:
+            log_result("correct", "BUTTON_1 en BUTTON_2 zijn aan, en R24V is aan.")
+            return True
+        else:
+            log_result("fout", "Niet alle outputs zijn correct ingeschakeld in stap 1.")
+            return False
+
+    except Exception as e:
+        log_result("fout", f"Fout in stap 1: {str(e)}")
+        return False
 
 # Start het script
 if __name__ == "__main__":
