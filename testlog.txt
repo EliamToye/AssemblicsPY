@@ -1,5 +1,2 @@
-2025-05-08 11:14:04 | Serienummer: --- | Status: fout | Stap 1 : Power up device met 24VDC en controle van module
-2025-05-08 11:15:13 | Serienummer: --- | Status: fout | Fout in stap 1: cannot access local variable 'regel' where it is not associated with a value
-2025-05-08 11:16:41 | Serienummer: 123 | Status: fout | Fout in stap 1: cannot access local variable 'regel' where it is not associated with a value
-2025-05-08 11:20:29 | Serienummer: 123 | Status: correct | BUTTON_1 en BUTTON_2 zijn aan, en R24V is aan.
-2025-05-08 11:20:29 | Serienummer: 123 | Status: fout | Fout: Serienummer is None, maar verwacht 123.
+
+2025-05-08 11:24:11 | Serienummer: 123 | Status: fout | Fout in stap 1: cannot access local variable 'tijdstip' where it is not associated with a value

@@ -122,11 +122,7 @@ def log_result(status, stap_omschrijving):
         print(regel)
         with open(LOGBESTAND, "a") as f:
             f.write(regel + "\n")
-
-    
-    print(regel)
-    with open(LOGBESTAND, "a") as f:
-        f.write(regel + "\n")
+        
         
 # Functie 5: Main
 def main():
