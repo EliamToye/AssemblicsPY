@@ -1,2 +1,0 @@
-
-2025-05-08 11:24:11 | Serienummer: 123 | Status: fout | Fout in stap 1: cannot access local variable 'tijdstip' where it is not associated with a value
