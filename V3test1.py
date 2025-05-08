@@ -116,11 +116,12 @@ def lees_uart(poort="/dev/serial0", baudrate=9600, timeout=1):
         return None
 
 def log_result(status, stap_omschrijving):
-    tijdstip = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if status == "fout":
+        tijdstip = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: fout | {stap_omschrijving}"
-    else:
-        regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: correct | {stap_omschrijving}"
+        print(regel)
+        with open(LOGBESTAND, "a") as f:
+            f.write(regel + "\n")
 
     
     print(regel)
