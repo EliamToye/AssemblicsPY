@@ -1,0 +1,3 @@
+2025-05-08 11:14:04 | Serienummer: --- | Status: fout | Stap 1 : Power up device met 24VDC en controle van module
+2025-05-08 11:15:13 | Serienummer: --- | Status: fout | Fout in stap 1: cannot access local variable 'regel' where it is not associated with a value
+2025-05-08 11:16:41 | Serienummer: 123 | Status: fout | Fout in stap 1: cannot access local variable 'regel' where it is not associated with a value

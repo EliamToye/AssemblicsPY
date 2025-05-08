@@ -29,7 +29,7 @@ INPUT_P4B = DigitalInputDevice(12)# INPUT_P4B (GPIO 12) - Input: Relais 2
 INPUT_P4C = DigitalInputDevice(16)# INPUT_P4C (GPIO 16) - Input: Relais 2
 
 # variabelen
-SERIENUMMER = "---"
+SERIENUMMER = "123"
 LOGBESTAND = "testlog.txt"
 
 # Exit netjes bij Ctrl+C
@@ -119,6 +119,8 @@ def log_result(status, stap_omschrijving):
     tijdstip = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if status == "fout":
         regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: fout | {stap_omschrijving}"
+    else:
+        regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: correct | {stap_omschrijving}"
 
     
     print(regel)
