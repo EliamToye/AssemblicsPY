@@ -255,8 +255,8 @@ def stap_4():
         p2c_ok = INPUT_P2C.value
         signal_r.off()
 
-        if groen_ok and geel_ok and p2c_ok:
-            log_result("correct", "Groene LED 2 en gele LED branden. Relais is actief.")
+        if groen_ok and geel_ok and not p2c_ok:
+            log_result("correct", "Groene LED 2 en gele LED branden. Relais is open.")
             return True
         else:
             foutmelding = "Fout: "
@@ -264,8 +264,8 @@ def stap_4():
                 foutmelding += "Groene LED 2 brandt niet. "
             if not geel_ok:
                 foutmelding += "Gele LED brandt niet."
-            if not p2c_ok:
-                foutmelding += "Relais is niet actief."
+            if p2c_ok:
+                foutmelding += "Relais is niet open."
             log_result("fout", foutmelding.strip())
             return False
 
