@@ -253,7 +253,7 @@ def stap_4():
         groen_ok = LED_GREEN2_OUT.value
         geel_ok = LED_YELLOW_OUT.value
         p2c_ok = INPUT_P2C.value
-        signal_r.on()
+        signal_r.off()
 
         if groen_ok and geel_ok and p2c_ok:
             log_result("correct", "Groene LED 2 en gele LED branden. Relais is actief.")
@@ -356,7 +356,7 @@ def stap_8():
         P3A.off()
         P3C.off()
         sleep(0.5)
-        signal_r.off()
+        signal_r.on()
 
         poging = 0
         while True:
@@ -389,7 +389,7 @@ def stap_8():
 def stap_9():
     try:
         print("Stap 9: Controle of groene LED 2 brandt...")
-        signal_r.on()
+        signal_r.off()
 
         if LED_GREEN2_OUT.value and Input_P2B.value:
             log_result("correct", "Groene LED 2 brandt. en relais is gesloten.")
