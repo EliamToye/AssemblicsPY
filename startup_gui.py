@@ -21,7 +21,7 @@ scripts = {
     "log": "log.py"
 }
 
-log_file = "test_log.txt"
+log_file = "testlog.txt"
 delay_time = 5000  # 5 seconden
 
 # Houd de geplande taak bij
@@ -109,13 +109,13 @@ def process_input():
 
     # Eerst detecteren of het een optie is (PIM of RISP)
     if "PIM" in input_upper:
-        last_option = "1"
+        last_option = "2"
         log_output.delete('1.0', tk.END)
         log_output.insert(tk.END, f"✅ PIM gedetecteerd. Wacht op serienummer...\n")
         active_option_label.config(text="Actieve optie: PIM")
 
     elif "RISP" in input_upper:
-        last_option = "2"
+        last_option = "1"
         log_output.delete('1.0', tk.END)
         log_output.insert(tk.END, f"✅ RISP gedetecteerd. Wacht op serienummer...\n")
         active_option_label.config(text="Actieve optie: RISP")
