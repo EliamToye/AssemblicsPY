@@ -198,13 +198,15 @@ def stap_2():
     try:
         print("Stap 2: serienummer uitlezen via UART...")
         # Lees het serienummer via UART
-        serienummer = lees_uart()  # gebruik de bestaande lees_uart functie die je hebt
+        
         signal_r.off
         if INPUT_P2C.value:
             log_result("fout", "verkeerde PCB aangesloten")
             return False
         else:
+            print("correct", "Relais PCB")
             # Controleer of het serienummer correct is
+            serienummer = lees_uart()  # gebruik de bestaande lees_uart functie die je hebt
             if serienummer and serienummer == SERIENUMMER:  # vergelijk met verwachte serienummer
                 print("correct", f"Serienummer {serienummer} komt overeen.")
                 return True
