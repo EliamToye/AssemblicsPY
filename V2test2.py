@@ -147,7 +147,7 @@ def stap_1_r24v_uart_check():
     # Lees UART
     uart_data = lees_uart()
     if uart_data == SERIENUMMER:
-        log_result("correct", "Stap 1 : Power up device met 24VDC en controle van module")
+        print("correct", "Stap 1 : Power up device met 24VDC en controle van module")
         return True
     else:
         log_result("fout", "Stap 1 : Power up device met 24VDC en controle van module")
@@ -162,7 +162,7 @@ def stap_2_rs485_check():
     yellow_led_status = led_yellow_out.value
 
     if rs485a_status == 1 and yellow_led_status == 1:
-        log_result("correct", "Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt")
+        print("correct", "Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt")
         return True
     else:
         log_result("fout", "Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt")
@@ -180,7 +180,7 @@ def stap_3_magneet_fixstuur_check():
     green_led_status = led_green1_out.value
 
     if green_led_status == 0:
-        log_result("correct", "Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt")
+        print("correct", "Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt")
         return True
     else:
         log_result("fout", "Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt")
@@ -196,7 +196,7 @@ def stap_4_groen_led1_check():
     groen_led1_status = led_green1_out.value
 
     if groen_led1_status == 1:
-        log_result("correct", "Stap 4 : MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1")
+        print("correct", "Stap 4 : MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1")
         return True
     else:
         log_result("fout", "Stap 4 : MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1")
@@ -208,7 +208,7 @@ def stap_5_rode_led_pcb_check():
     rood_led_status = led_red_out.value
 
     if rood_led_status == 1:
-        log_result("correct", "Stap 5 : Controle of de rode LED op de PCB brandt")
+        print("correct", "Stap 5 : Controle of de rode LED op de PCB brandt")
         return True
     else:
         log_result("fout", "Stap 5 : Controle of de rode LED op de PCB brandt")
@@ -224,7 +224,7 @@ def stap_6_magneet_roodled_check():
     rood_led_status = led_red_out.value
 
     if rood_led_status == 1:
-        log_result("correct", "Stap 6 : MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB")
+        print("correct", "Stap 6 : MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB")
         return True
     else:
         log_result("fout", "Stap 6 : MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB")
@@ -242,7 +242,7 @@ def stap_7_afleggen():
     rs485.off()
     R_24V.off()
 
-    log_result("correct", "Stap 7 : Alle uitgangen uitgeschakeld")
+    print("correct", "Stap 7 : Alle uitgangen uitgeschakeld")
     return True
 
 # Start het script
