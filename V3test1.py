@@ -36,6 +36,22 @@ LOGBESTAND = "testlog.txt"
 def afsluiten():
     signal_r.off()
     signal_g.off()
+    P3A.off()
+    P3C.off()
+    P1_1.off()
+    P1_2.off()
+    BUTTON_1.off()
+    BUTTON_2.off()
+    R_24V.off()
+    RS485.off()
+    RS485A.off()
+    INPUT_P2C.off()
+    INPUT_P4B.off()
+    INPUT_P4C.off()
+    LED_RED_OUT.off()
+    LED_YELLOW_OUT.off()
+    LED_GREEN2_OUT.off()
+    LED_GREEN1_OUT.off()
     print("\nGPIO netjes uitgeschakeld. Programma gestopt.")
 
 # Functie 1: Knipper met Signal R en G
