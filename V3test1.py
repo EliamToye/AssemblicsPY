@@ -307,7 +307,7 @@ def stap_6():
         rood_status = LED_RED_OUT.value
         p2c_ok = INPUT_P2C.value
 
-        if groen_status and rood_status and p2c_ok:
+        if groen_status and rood_status and not p2c_ok:
             log_result("correct", "Groene LED 2 en rode LED branden beide.Relais is open.")
             return True
         else:
@@ -316,7 +316,7 @@ def stap_6():
                 foutmelding += "Groene LED 2 brandt niet. "
             if not rood_status:
                 foutmelding += "Rode LED brandt niet."
-            if not p2c_ok:
+            if p2c_ok:
                 foutmelding += "Relais is niet open."
             log_result("fout", foutmelding.strip())
             return False
@@ -427,7 +427,7 @@ def stap_10():
         rood = LED_RED_OUT.value
         p2c_ok = INPUT_P2C.value
 
-        if groen and rood and p2c_ok:
+        if groen and rood and not p2c_ok:
             log_result("correct", "Bridgewires aan: groene LED 2 en rode LED branden.p2c is open.")
             return True
         else:
@@ -436,7 +436,7 @@ def stap_10():
                 foutmelding += " groene LED 2 uit."
             if not rood:
                 foutmelding += " rode LED uit."
-            if not p2c_ok:
+            if p2c_ok:
                 foutmelding += " relais is niet open."
             log_result("fout", foutmelding)
             return False
