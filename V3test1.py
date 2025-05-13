@@ -50,8 +50,8 @@ LOGBESTAND = "testlog.txt"
 
 # Exit netjes bij Ctrl+C
 def afsluiten():
-    signal_r.off()
-    signal_g.off()
+    signal_r.on()
+    signal_g.on()
     P3A.off()
     P3C.off()
     P1_1.off()
@@ -150,6 +150,8 @@ def log_result(status, stap_omschrijving):
 # Functie 5: Main
 def main():
     try:
+        signal_g.on()
+        signal_r.on()
         # Start knipper_signalen in aparte thread
         knipper_thread = threading.Thread(target=knipper_signalen)
         knipper_thread.daemon = True  # stopt automatisch mee bij afsluiten
@@ -184,7 +186,7 @@ def stap_1():
             print("correct", "BUTTON_1 en BUTTON_2 zijn aan, en R24V is aan.")
             return True
         else:
-            log_result("fout", "Niet alle outputs zijn correct ingeschakeld in stap 1.")
+            log_result("fout", "24V is niet ingeschakeld.")
             return False
 
     except Exception as e:
@@ -197,20 +199,25 @@ def stap_2():
         print("Stap 2: serienummer uitlezen via UART...")
         # Lees het serienummer via UART
         serienummer = lees_uart()  # gebruik de bestaande lees_uart functie die je hebt
-
-        # Controleer of het serienummer correct is
-        if serienummer and serienummer == SERIENUMMER:  # vergelijk met verwachte serienummer
-            print("correct", f"Serienummer {serienummer} komt overeen.")
-            return True
-        else:
-            log_result("fout", f"Fout: Serienummer is {serienummer}, maar verwacht {SERIENUMMER}.")
+        signal_r.off
+        if INPUT_P2C.value:
+            log_result("fout", "verkeerde PCB aangesloten")
             return False
+        else:
+            # Controleer of het serienummer correct is
+            if serienummer and serienummer == SERIENUMMER:  # vergelijk met verwachte serienummer
+                print("correct", f"Serienummer {serienummer} komt overeen.")
+                return True
+            else:
+                log_result("fout", f"Fout: Serienummer is {serienummer}, maar verwacht {SERIENUMMER}.")
+                return False
+        
 
     except Exception as e:
         log_result("fout", f"Fout in stap 2: {str(e)}")
         return False
     
-    
+  
 def stap_3():
     try:
         print("Stap 3: BUTTON_2 aan, wacht op UART = S03...")
