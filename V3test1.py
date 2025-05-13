@@ -5,6 +5,7 @@ import serial
 import datetime
 import os
 import threading
+import sys
 
 # Signaal-LED's
 signal_r = DigitalOutputDevice(2)   # GPIO 2
@@ -28,8 +29,23 @@ INPUT_P2C = DigitalInputDevice(1)# INPUT_P2C (GPIO 1) - Input: Relais 1
 INPUT_P4B = DigitalInputDevice(12)# INPUT_P4B (GPIO 12) - Input: Relais 2
 INPUT_P4C = DigitalInputDevice(16)# INPUT_P4C (GPIO 16) - Input: Relais 2
 
+
+
+
+# Serienummer verkrijgen
+# Verkrijg het serienummer uit de commandoregelargumenten
+if len(sys.argv) > 1:
+    serienummer = sys.argv[1]
+    print(f"Serienummer ontvangen: {serienummer}")
+else:
+    print("Fout: Geen serienummer opgegeven.")
+    sys.exit(1)
+if not serienummer.isdigit():
+    print("Fout: Serienummer moet uit cijfers bestaan.")
+    sys.exit(1)
+
 # variabelen
-SERIENUMMER = "123"
+SERIENUMMER = serienummer
 LOGBESTAND = "testlog.txt"
 
 # Exit netjes bij Ctrl+C
@@ -44,14 +60,6 @@ def afsluiten():
     BUTTON_2.off()
     R_24V.off()
     RS485.off()
-    RS485A.off()
-    INPUT_P2C.off()
-    INPUT_P4B.off()
-    INPUT_P4C.off()
-    LED_RED_OUT.off()
-    LED_YELLOW_OUT.off()
-    LED_GREEN2_OUT.off()
-    LED_GREEN1_OUT.off()
     print("\nGPIO netjes uitgeschakeld. Programma gestopt.")
 
 # Functie 1: Knipper met Signal R en G

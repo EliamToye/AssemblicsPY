@@ -15,7 +15,7 @@ active_option_label = None
 script_is_running = False
 
 scripts = {
-    "1": "test1.py",
+    "1": "V3test1.py",
     "2": "test2.py",
     "help": "testhelp.py",
     "log": "log.py"
