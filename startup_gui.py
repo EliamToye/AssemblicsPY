@@ -16,7 +16,8 @@ script_is_running = False
 
 scripts = {
     "1": "V3test1.py",
-    "2": "test2.py",
+    "2": "V2test2.py",
+    "3": "test3.py",
     "help": "testhelp.py",
     "log": "log.py"
 }
