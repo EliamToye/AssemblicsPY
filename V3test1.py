@@ -277,18 +277,18 @@ def stap_4():
 def stap_5():
     try:
         print("Stap 5: P3A aan, controle groene LED 2...")
-        p2b_ok = Input_P2B.value
+        p2c_ok = INPUT_P2C.value
         P3A.on()
         sleep(0.5)  # geef de hardware een halve seconde om te reageren
 
-        if LED_GREEN2_OUT.value and p2b_ok:
+        if LED_GREEN2_OUT.value and p2c_ok:
             log_result("correct", "Groene LED 2 brandt na inschakelen P3A. Relais is gesloten")
             return True
         else:
             foutmelding = "Fout: "
             if not LED_GREEN2_OUT.value:
                 foutmelding += "Groene LED 2 brandt niet. "
-            if not p2b_ok:
+            if not p2c_ok:
                 foutmelding += "relais is niet gesloten."
             log_result("fout", foutmelding.strip())
             return False
