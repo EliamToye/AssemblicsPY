@@ -116,7 +116,7 @@ def log_result(status, stap_omschrijving):
     if status == "fout":
         regel = f"{tijdstip} | Serienummer: {serienummergui} | Status: fout | {stap_omschrijving}"
     else:
-        regel = f"{tijdstip} | Serienummer: {serienummergui} | Status: correct - {stap_omschrijving}"
+        regel = f"{tijdstip} | Optie : PIM | Serienummer: {serienummergui} | Status: correct - {stap_omschrijving}"
     
     print(regel)
     with open(LOGBESTAND, "a") as f:
