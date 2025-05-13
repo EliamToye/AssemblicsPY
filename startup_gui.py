@@ -115,11 +115,17 @@ def process_input():
         log_output.insert(tk.END, f"✅ PIM gedetecteerd. Wacht op serienummer...\n")
         active_option_label.config(text="Actieve optie: PIM")
 
-    elif "RISP" in input_upper:
+    elif "RISPR" in input_upper:
         last_option = "1"
         log_output.delete('1.0', tk.END)
         log_output.insert(tk.END, f"✅ RISP gedetecteerd. Wacht op serienummer...\n")
-        active_option_label.config(text="Actieve optie: RISP")
+        active_option_label.config(text="Actieve optie: RISPR")
+    
+    elif "RISPE" in input_upper:
+        last_option = "3"
+        log_output.delete('1.0', tk.END)
+        log_output.insert(tk.END, f"✅ RISP gedetecteerd. Wacht op serienummer...\n")
+        active_option_label.config(text="Actieve optie: RISPE")
 
     # Daarna controleren of het een serienummer is
     elif last_option and re.match(r"^[A-Za-z0-9\-]+$", user_input):
@@ -127,7 +133,7 @@ def process_input():
         run_script(last_option, serienummer=user_input)
 
     else:
-        log_output.insert(tk.END, "❌ Ongeldige input. Scan eerst (PIM of RISP).\n")
+        log_output.insert(tk.END, "❌ Ongeldige input. Scan eerst (PIM of RISPR of RISPE).\n")
 
     log_output.see(tk.END)
     input_entry.delete(0, tk.END)
