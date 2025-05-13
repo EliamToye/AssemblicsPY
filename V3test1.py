@@ -140,9 +140,11 @@ def log_result(status, stap_omschrijving):
     if status == "fout":
         tijdstip = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         regel = f"{tijdstip} | Optie : RISP REL | Serienummer: {SERIENUMMER} | Status: fout | {stap_omschrijving}"
-        print(regel)
-        with open(LOGBESTAND, "a") as f:
-            f.write(regel + "\n")
+    else:
+        regel = f"{tijdstip} | Optie : RISP REL | Serienummer: {SERIENUMMER} | Status: correct - {stap_omschrijving}"
+    print(regel)
+    with open(LOGBESTAND, "a") as f:
+        f.write(regel + "\n")
         
         
 # Functie 5: Main
@@ -163,6 +165,7 @@ def main():
 
 def stap_1():
     try:
+        print("Stap 1: Zet BUTTON_1 en BUTTON_2 aan, controleer R24V...")
         # Zet BUTTON_1 en BUTTON_2 aan
         BUTTON_1.on()
         BUTTON_2.on()
@@ -178,7 +181,7 @@ def stap_1():
 
         # Controleer of de outputs goed zijn ingeschakeld
         if R_24V.is_active:
-            log_result("correct", "BUTTON_1 en BUTTON_2 zijn aan, en R24V is aan.")
+            print("correct", "BUTTON_1 en BUTTON_2 zijn aan, en R24V is aan.")
             return True
         else:
             log_result("fout", "Niet alle outputs zijn correct ingeschakeld in stap 1.")
@@ -191,12 +194,13 @@ def stap_1():
 
 def stap_2():
     try:
+        print("Stap 2: serienummer uitlezen via UART...")
         # Lees het serienummer via UART
         serienummer = lees_uart()  # gebruik de bestaande lees_uart functie die je hebt
 
         # Controleer of het serienummer correct is
         if serienummer and serienummer == SERIENUMMER:  # vergelijk met verwachte serienummer
-            log_result("correct", f"Serienummer {serienummer} komt overeen.")
+            print("correct", f"Serienummer {serienummer} komt overeen.")
             return True
         else:
             log_result("fout", f"Fout: Serienummer is {serienummer}, maar verwacht {SERIENUMMER}.")
@@ -224,7 +228,7 @@ def stap_3():
             uart_data = lees_uart()
 
             if uart_data == "S03":
-                log_result("correct", "UART status is S03 na drukken van BUTTON_2/BUTTON_1.")
+                print("correct", "UART status is S03 na drukken van BUTTON_2/BUTTON_1.")
                 BUTTON_1.on()
                 BUTTON_2.on()
                 sleep(3)
@@ -257,7 +261,7 @@ def stap_4():
         signal_r.off()
 
         if groen_ok and geel_ok and not p2c_ok and not p4c_ok:
-            log_result("correct", "Groene LED 2 en gele LED branden. Relais's zijn open.")
+            print("correct", "Groene LED 2 en gele LED branden. Relais's zijn open.")
             return True
         else:
             foutmelding = "Fout: "
@@ -286,7 +290,7 @@ def stap_5():
         sleep(0.5)  # geef de hardware een halve seconde om te reageren
 
         if LED_GREEN2_OUT.value and p2c_ok and p4c_ok:
-            log_result("correct", "Groene LED 2 brandt na inschakelen P3A. Relais's zijn gesloten")
+            print("correct", "Groene LED 2 brandt na inschakelen P3A. Relais's zijn gesloten")
             return True
         else:
             foutmelding = "Fout: "
@@ -349,7 +353,7 @@ def stap_7():
         p4c_ok = INPUT_P4C.value
 
         if groen_status and geel_status and p2c_ok:
-            log_result("correct", "Groene LED 2 en gele LED branden beide.Relais 1 is gesloten. Relais 2 is open.")
+            print("correct", "Groene LED 2 en gele LED branden beide.Relais 1 is gesloten. Relais 2 is open.")
             return True
         else:
             foutmelding = "Fout: "
@@ -382,7 +386,7 @@ def stap_8():
         while True:
             data = lees_uart()
             if data == "S02":
-                log_result("correct", "UART geeft 'S02' door.")
+                print("correct", "UART geeft 'S02' door.")
                 BUTTON_1.on()
                 BUTTON_2.on()
                 sleep(3)
@@ -413,7 +417,7 @@ def stap_9():
         p4c_ok = INPUT_P4C.value
 
         if LED_GREEN2_OUT.value and Input_P2B.value and p4c_ok:
-            log_result("correct", "Groene LED 2 brandt. en relais's zijn gesloten.")
+            print("correct", "Groene LED 2 brandt. en relais's zijn gesloten.")
             return True
         else:
             foutmelding = "Fout: "
@@ -444,7 +448,7 @@ def stap_10():
         p4c_ok = INPUT_P4C.value
 
         if groen and rood and not p2c_ok and p4c_ok:
-            log_result("correct", "Bridgewires aan: groene LED 2 en rode LED branden.Relais 1 is open. Relais 2 is gesloten.")
+            print("correct", "Bridgewires aan: groene LED 2 en rode LED branden.Relais 1 is open. Relais 2 is gesloten.")
             return True
         else:
             foutmelding = "Bridgewires actief, maar status klopt niet:"
@@ -475,7 +479,7 @@ def stap_11():
         while True:
             data = lees_uart()
             if data == "S03":
-                log_result("correct", "UART geeft 'S03' door.")
+                print("correct", "UART geeft 'S03' door.")
                 BUTTON_1.on()
                 BUTTON_2.on()
                 sleep(3)
@@ -529,7 +533,7 @@ def stap_13():
         RS485.off()
 
         print("Alle uitgangen zijn uitgeschakeld.")
-        log_result("correct", "Alle uitgangen zijn op 0 gezet voor veiligheid.")
+        print("correct", "Alle uitgangen zijn op 0 gezet voor veiligheid.")
         return True
 
     except Exception as e:
