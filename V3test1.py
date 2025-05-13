@@ -300,7 +300,6 @@ def stap_5():
 def stap_6():
     try:
         print("Stap 6: P3A uit, controle groene LED 2 en rode LED...")
-        signal_r.off()
         P3A.off()
         sleep(0.5)  # geef de hardware tijd om te schakelen
 
@@ -339,17 +338,11 @@ def stap_7():
         geel_status = LED_YELLOW_OUT.value
         p2b_ok = Input_P2B.value
 
-        if groen_status and geel_status:
-            log_result("correct", "Groene LED 2 en gele LED branden beide.")
+        if groen_status and geel_status and p2b_ok:
+            log_result("correct", "Groene LED 2 en gele LED branden beide.relais is gesloten.")
             return True
         else:
-            foutmelding = "Fout: "
-            if not groen_status:
-                foutmelding += "Groene LED 2 brandt niet. "
-            if not geel_status:
-                foutmelding += "Gele LED brandt niet."
-            log_result("fout", foutmelding.strip())
-            return False
+            v
 
     except Exception as e:
         log_result("fout", f"Fout in stap 7: {str(e)}")
@@ -363,6 +356,7 @@ def stap_8():
         P3A.off()
         P3C.off()
         sleep(0.5)
+        signal_r.off()
 
         poging = 0
         while True:
@@ -395,12 +389,18 @@ def stap_8():
 def stap_9():
     try:
         print("Stap 9: Controle of groene LED 2 brandt...")
+        signal_r.on()
 
-        if LED_GREEN2_OUT.value:
-            log_result("correct", "Groene LED 2 brandt.")
+        if LED_GREEN2_OUT.value and Input_P2B.value:
+            log_result("correct", "Groene LED 2 brandt. en relais is gesloten.")
             return True
         else:
-            log_result("fout", "Groene LED 2 brandt niet.")
+            foutmelding = "Fout: "
+            if not LED_GREEN2_OUT.value:
+                foutmelding += "Groene LED 2 brandt niet. "
+            if not Input_P2B.value:
+                foutmelding += "Relais is niet gesloten."
+            log_result("fout", foutmelding.strip())
             return False
 
     except Exception as e:
