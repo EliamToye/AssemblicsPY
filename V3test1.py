@@ -306,9 +306,10 @@ def stap_6():
 
         groen_status = LED_GREEN2_OUT.value
         rood_status = LED_RED_OUT.value
+        p2b_ok = Input_P2B.value
 
-        if groen_status and rood_status:
-            log_result("correct", "Groene LED 2 en rode LED branden beide.")
+        if groen_status and rood_status and p2b_ok:
+            log_result("correct", "Groene LED 2 en rode LED branden beide.Relais is open.")
             return True
         else:
             foutmelding = "Fout: "
@@ -316,6 +317,8 @@ def stap_6():
                 foutmelding += "Groene LED 2 brandt niet. "
             if not rood_status:
                 foutmelding += "Rode LED brandt niet."
+            if not p2b_ok:
+                foutmelding += "Relais is niet open."
             log_result("fout", foutmelding.strip())
             return False
 
@@ -334,6 +337,7 @@ def stap_7():
 
         groen_status = LED_GREEN2_OUT.value
         geel_status = LED_YELLOW_OUT.value
+        p2b_ok = Input_P2B.value
 
         if groen_status and geel_status:
             log_result("correct", "Groene LED 2 en gele LED branden beide.")
