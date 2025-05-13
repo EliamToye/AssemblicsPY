@@ -67,13 +67,10 @@ def knipper_signalen(tijd=5, interval=0.5):
     print("Knipperen met signalen...")
     eindtijd = tijd / interval / 2
     for _ in range(int(eindtijd)):
-        signal_r.on()
         signal_g.off()
         sleep(interval)
-        signal_r.off()
         signal_g.on()
         sleep(interval)
-    signal_r.off()
     signal_g.off()
 
 # Functie 2: Doorloop de stappen
@@ -255,9 +252,11 @@ def stap_4():
 
         groen_ok = LED_GREEN2_OUT.value
         geel_ok = LED_YELLOW_OUT.value
+        p2c_ok = INPUT_P2C.value
+        signal_r.on()
 
-        if groen_ok and geel_ok:
-            log_result("correct", "Groene LED 2 en gele LED branden.")
+        if groen_ok and geel_ok and p2c_ok:
+            log_result("correct", "Groene LED 2 en gele LED branden. Relais is actief.")
             return True
         else:
             foutmelding = "Fout: "
@@ -265,6 +264,8 @@ def stap_4():
                 foutmelding += "Groene LED 2 brandt niet. "
             if not geel_ok:
                 foutmelding += "Gele LED brandt niet."
+            if not p2c_ok:
+                foutmelding += "Relais is niet actief."
             log_result("fout", foutmelding.strip())
             return False
 
@@ -276,7 +277,7 @@ def stap_4():
 def stap_5():
     try:
         print("Stap 5: P3A aan, controle groene LED 2...")
-
+        signal_r.off()
         P3A.on()
         sleep(0.5)  # geef de hardware een halve seconde om te reageren
 
