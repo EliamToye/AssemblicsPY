@@ -228,6 +228,11 @@ def stap_3():
 
             if uart_data == "S03":
                 log_result("correct", "UART status is S03 na drukken van BUTTON_2/BUTTON_1.")
+                BUTTON_1.on()
+                BUTTON_2.on()
+                sleep(3)
+                BUTTON_1.off()
+                BUTTON_2.off()
                 return True
             else:
                 log_result("fout", f"UART gaf '{uart_data}' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.")
@@ -354,6 +359,11 @@ def stap_8():
             data = lees_uart()
             if data == "S02":
                 log_result("correct", "UART geeft 'S02' door.")
+                BUTTON_1.on()
+                BUTTON_2.on()
+                sleep(3)
+                BUTTON_1.off()
+                BUTTON_2.off()
                 return True
 
             poging += 1
@@ -427,6 +437,11 @@ def stap_11():
             data = lees_uart()
             if data == "S03":
                 log_result("correct", "UART geeft 'S03' door.")
+                BUTTON_1.on()
+                BUTTON_2.on()
+                sleep(3)
+                BUTTON_1.off()
+                BUTTON_2.off()
                 return True
 
             poging += 1
