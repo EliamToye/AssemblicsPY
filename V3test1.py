@@ -342,7 +342,15 @@ def stap_7():
             log_result("correct", "Groene LED 2 en gele LED branden beide.relais is gesloten.")
             return True
         else:
-            v
+            foutmelding = "Fout: "
+            if not groen_status:
+                foutmelding += "Groene LED 2 brandt niet. "
+            if not geel_status:
+                foutmelding += "Gele LED brandt niet."
+            if not p2c_ok:
+                foutmelding += "Relais is niet gesloten."
+            log_result("fout", foutmelding.strip())
+            return False
 
     except Exception as e:
         log_result("fout", f"Fout in stap 7: {str(e)}")
