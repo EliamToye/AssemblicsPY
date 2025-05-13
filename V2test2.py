@@ -5,6 +5,7 @@ import serial
 import datetime
 import os
 import threading
+import sys
 
 # Signaal-LED's
 signal_r = DigitalOutputDevice(2)   # GPIO 2
@@ -30,6 +31,19 @@ R_24V = DigitalOutputDevice(26)# R_24V (GPIO 26) - Output: 24V extern
 # Stel serienummer globaal in (mag later dynamisch gemaakt worden)
 SERIENUMMER = "---"
 LOGBESTAND = "testlog.txt"
+
+# Serienummer verkrijgen
+# Verkrijg het serienummer uit de commandoregelargumenten
+if len(sys.argv) > 1:
+    serienummergui = sys.argv[1]
+    print(f"Serienummer ontvangen: {serienummergui}")
+else:
+    print("Fout: Geen serienummer opgegeven.")
+    sys.exit(1)
+if not serienummergui.isdigit():
+    print("Fout: Serienummer moet uit cijfers bestaan.")
+    sys.exit(1)
+
 
 # Exit netjes bij Ctrl+C
 def afsluiten():
@@ -100,9 +114,9 @@ def lees_uart(poort="/dev/serial0", baudrate=9600, timeout=1):
 def log_result(status, stap_omschrijving):
     tijdstip = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if status == "fout":
-        regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: fout | {stap_omschrijving}"
+        regel = f"{tijdstip} | Serienummer: {serienummergui} | Status: fout | {stap_omschrijving}"
     else:
-        regel = f"{tijdstip} | Serienummer: {SERIENUMMER} | Status: correct - {stap_omschrijving}"
+        regel = f"{tijdstip} | Serienummer: {serienummergui} | Status: correct - {stap_omschrijving}"
     
     print(regel)
     with open(LOGBESTAND, "a") as f:
