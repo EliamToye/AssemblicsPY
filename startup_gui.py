@@ -118,13 +118,13 @@ def process_input():
     elif "RISPR" in input_upper:
         last_option = "1"
         log_output.delete('1.0', tk.END)
-        log_output.insert(tk.END, f"✅ RISP gedetecteerd. Wacht op serienummer...\n")
+        log_output.insert(tk.END, f"✅ RISPR gedetecteerd. Wacht op serienummer...\n")
         active_option_label.config(text="Actieve optie: RISPR")
     
     elif "RISPE" in input_upper:
         last_option = "3"
         log_output.delete('1.0', tk.END)
-        log_output.insert(tk.END, f"✅ RISP gedetecteerd. Wacht op serienummer...\n")
+        log_output.insert(tk.END, f"✅ RISPE gedetecteerd. Wacht op serienummer...\n")
         active_option_label.config(text="Actieve optie: RISPE")
 
     # Daarna controleren of het een serienummer is
