@@ -139,9 +139,9 @@ def lees_uart(poort="/dev/serial0", baudrate=9600, timeout=1):
 def log_result(status, stap_omschrijving):
     if status == "fout":
         tijdstip = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        regel = f"{tijdstip} | Optie : RISP REL | Serienummer: {SERIENUMMER} | Status: fout | {stap_omschrijving}"
+        regel = f"{tijdstip} | Optie : RISP EP | Serienummer: {SERIENUMMER} | Status: fout | {stap_omschrijving}"
     else:
-        regel = f"{tijdstip} | Optie : RISP REL | Serienummer: {SERIENUMMER} | Status: correct - {stap_omschrijving}"
+        regel = f"{tijdstip} | Optie : RISP EP | Serienummer: {SERIENUMMER} | Status: correct - {stap_omschrijving}"
     print(regel)
     with open(LOGBESTAND, "a") as f:
         f.write(regel + "\n")
