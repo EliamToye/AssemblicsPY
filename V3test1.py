@@ -35,17 +35,17 @@ INPUT_P4C = DigitalInputDevice(16)# INPUT_P4C (GPIO 16) - Input: Relais 2
 # Serienummer verkrijgen
 # Verkrijg het serienummer uit de commandoregelargumenten
 if len(sys.argv) > 1:
-    serienummer = sys.argv[1]
-    print(f"Serienummer ontvangen: {serienummer}")
+    serienummergui = sys.argv[1]
+    print(f"Serienummer ontvangen: {serienummergui}")
 else:
     print("Fout: Geen serienummer opgegeven.")
     sys.exit(1)
-if not serienummer.isdigit():
+if not serienummergui.isdigit():
     print("Fout: Serienummer moet uit cijfers bestaan.")
     sys.exit(1)
 
 # variabelen
-SERIENUMMER = serienummer
+SERIENUMMER = serienummergui
 LOGBESTAND = "testlog.txt"
 
 # Exit netjes bij Ctrl+C
