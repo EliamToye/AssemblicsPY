@@ -209,9 +209,11 @@ def stap_2():
             serienummer = lees_uart()  # gebruik de bestaande lees_uart functie die je hebt
             if serienummer and serienummer == SERIENUMMER:  # vergelijk met verwachte serienummer
                 print("correct", f"Serienummer {serienummer} komt overeen.")
+                signal_r.on()
                 return True
             else:
                 log_result("fout", f"Fout: Serienummer is {serienummer}, maar verwacht {SERIENUMMER}.")
+                signal_r.on()
                 return False
         
 
