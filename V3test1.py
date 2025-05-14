@@ -501,7 +501,7 @@ def stap_11():
         poging = 0
         while True:
             data = lees_uart()
-            if data == "S03":
+            if data == "503":
                 print("correct", "UART geeft 'S03' door.")
                 BUTTON_1.on()
                 BUTTON_2.on()

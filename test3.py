@@ -273,7 +273,7 @@ def stap_4():
         p4b_ok = INPUT_P4B.value
         signal_r.off()
 
-        if groen_ok and geel_ok and not p2c_ok and not p4c_ok and p2b_ok and p4b_ok:
+        if groen_ok and geel_ok  and p2b_ok and p4b_ok:
             print("correct", "Groene LED 2 en gele LED branden. Relais's zijn open.")
             return True
         else:
@@ -282,9 +282,9 @@ def stap_4():
                 foutmelding += "Groene LED 2 brandt niet. "
             if not geel_ok:
                 foutmelding += "Gele LED brandt niet."
-            if p2c_ok and not p2b_ok:
+            if not p2b_ok:
                 foutmelding += "Relais 1 is niet open."
-            if p4c_ok and not p4b_ok:
+            if not p4b_ok:
                 foutmelding += "Relais 2 is niet open."
             log_result("fout", foutmelding.strip())
             return False
@@ -304,16 +304,16 @@ def stap_5():
         P3A.on()
         sleep(0.5)  # geef de hardware een halve seconde om te reageren
 
-        if LED_GREEN2_OUT.value and p2c_ok and p4c_ok and not p2b_ok and not p4b_ok:
+        if LED_GREEN2_OUT.value and not p2b_ok and not p4b_ok:
             print("correct", "Groene LED 2 brandt na inschakelen P3A. Relais's zijn gesloten")
             return True
         else:
             foutmelding = "Fout: "
             if not LED_GREEN2_OUT.value:
                 foutmelding += "Groene LED 2 brandt niet. "
-            if not p2c_ok and p2b_ok:
+            if p2b_ok:
                 foutmelding += "relais 1 is niet gesloten."
-            if not p4c_ok and p4b_ok:
+            if p4b_ok:
                 foutmelding += "Relais 2 is niet open."
             log_result("fout", foutmelding.strip())
             return False
@@ -335,7 +335,7 @@ def stap_6():
         p2b_ok = Input_P2B.value
         p4b_ok = INPUT_P4B.value
 
-        if groen_status and rood_status and not p2c_ok and p4c_ok and p2b_ok and not p4b_ok:
+        if groen_status and rood_status and p2b_ok and not p4b_ok:
             log_result("correct", "Groene LED 2 en rode LED branden beide.Relais 1 is open. Relais 2 is gesloten.")
             return True
         else:
@@ -371,7 +371,7 @@ def stap_7():
         p2b_ok = Input_P2B.value
         p4b_ok = INPUT_P4B.value
 
-        if groen_status and geel_status and p2c_ok and not p4c_ok and not p2b_ok and p4b_ok:
+        if groen_status and geel_status and not p2b_ok and p4b_ok:
             print("correct", "Groene LED 2 en gele LED branden beide.Relais 1 is gesloten. Relais 2 is open.")
             return True
         else:
@@ -380,9 +380,9 @@ def stap_7():
                 foutmelding += "Groene LED 2 brandt niet. "
             if not geel_status:
                 foutmelding += "Gele LED brandt niet."
-            if not p2c_ok and p2b_ok:
+            if p2b_ok:
                 foutmelding += "Relais 1 is niet gesloten."
-            if p4c_ok and not p4b_ok:
+            if p4b_ok:
                 foutmelding += "Relais 2 is niet open."
             log_result("fout", foutmelding.strip())
             return False
@@ -437,16 +437,16 @@ def stap_9():
         p2b_ok = Input_P2B.value
         p4b_ok = INPUT_P4B.value
 
-        if LED_GREEN2_OUT.value and INPUT_P2C.value and p4c_ok and not p2b_ok and not p4b_ok:
+        if LED_GREEN2_OUT.value and not p2b_ok and not p4b_ok:
             print("correct", "Groene LED 2 brandt. en relais's zijn gesloten.")
             return True
         else:
             foutmelding = "Fout: "
             if not LED_GREEN2_OUT.value:
                 foutmelding += "Groene LED 2 brandt niet. "
-            if not INPUT_P2C.value and p2b_ok:
+            if p2b_ok:
                 foutmelding += "Relais 1 is niet gesloten."
-            if not p4c_ok and p4b_ok:
+            if p4b_ok:
                 foutmelding += "Relais 2 is niet gesloten."
             log_result("fout", foutmelding.strip())
             return False
@@ -470,7 +470,7 @@ def stap_10():
         p2b_ok = Input_P2B.value
         p4b_ok = INPUT_P4B.value
 
-        if groen and rood and not p2c_ok and p4c_ok and p2b_ok and not p4b_ok:
+        if groen and rood and p2b_ok and not p4b_ok:
             print("correct", "Bridgewires aan: groene LED 2 en rode LED branden.Relais 1 is open. Relais 2 is gesloten.")
             return True
         else:
@@ -479,9 +479,9 @@ def stap_10():
                 foutmelding += " groene LED 2 uit."
             if not rood:
                 foutmelding += " rode LED uit."
-            if p2c_ok and not p2b_ok:
+            if not p2b_ok:
                 foutmelding += " relais 1 is niet open."
-            if not p4c_ok and p4b_ok:
+            if p4b_ok:
                 foutmelding += "Relais 2 is niet gesloten."
             log_result("fout", foutmelding)
             return False
@@ -501,7 +501,7 @@ def stap_11():
         poging = 0
         while True:
             data = lees_uart()
-            if data == "S03":
+            if data == "503":
                 print("correct", "UART geeft 'S03' door.")
                 BUTTON_1.on()
                 BUTTON_2.on()
