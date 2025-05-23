@@ -1,0 +1,118 @@
+
+2025-05-22 07:27:51 | Optie : RISP REL | Serienummer: 128 | Status: fout | Fout:
+2025-05-22 07:30:38 | Optie : RISP REL | Serienummer: 128 | Status: fout | Maximale pogingen bereikt zonder 'S02' van UART.
+2025-05-22 07:32:33 | Optie : RISP REL | Serienummer: 128 | Status: fout | Maximale pogingen bereikt zonder 'S02' van UART.
+2025-05-22 07:35:25 | Optie : RISP REL | Serienummer: 128 | Status: fout | Fout:
+2025-05-22 07:37:10 | Optie : RISP REL | Serienummer: 128 | Status: fout | UART gaf '502' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 07:38:18 | Optie : RISP REL | Serienummer: 128 | Status: fout | Bridgewires actief, maar status klopt niet:
+2025-05-22 07:44:05 | Optie : RISP REL | Serienummer: 128 | Status: fout | UART gaf '502' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 07:45:38 | Optie : RISP REL | Serienummer: 128 | Status: fout | Fout in stap 12: cannot access local variable 'tijdstip' where it is not associated with a value
+2025-05-22 07:48:05 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 07:51:22 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 07:53:26 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 07:55:18 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 07:57:59 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:06:43 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:08:50 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:14:03 | Optie : RISP REL | Serienummer: 128 | Status: fout | Fout: Serienummer is 5	 %i1128, maar verwacht 128.
+2025-05-22 08:18:54 | Optie : RISP REL | Serienummer: 128 | Status: fout | Fout: Rode LED brandt niet.
+2025-05-22 08:22:09 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:23:56 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:25:19 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:26:18 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:27:44 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:29:41 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:32:28 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:34:33 | Optie : RISP REL | Serienummer: 128 | Status: fout | Fout: Serienummer is a01, maar verwacht 128.
+2025-05-22 08:34:54 | Optie : RISP REL | Serienummer: 128 | Status: fout | Fout: Serienummer is a00, maar verwacht 128.
+2025-05-22 08:35:57 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:37:23 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:41:14 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:42:25 | Serienummer: 128 | Status: correct - PCB
+2025-05-22 08:46:45 | Serienummer: 125 | Status: correct - PCB
+2025-05-22 08:49:52 | Optie : RISP REL | Serienummer: 1628 | Status: fout | Fout:
+2025-05-22 08:52:03 | Optie : RISP REL | Serienummer: 1628 | Status: fout | Fout:
+2025-05-22 08:53:37 | Serienummer: 1628 | Status: correct - PCB
+2025-05-22 08:55:09 | Serienummer: 1628 | Status: correct - PCB
+2025-05-22 08:57:16 | Optie : RISP REL | Serienummer: 128 | Status: fout | Fout: Relais 2 is niet open.(p4b)
+2025-05-22 09:02:08 | Optie : RISP REL | Serienummer: 1628 | Status: fout | Fout: Relais 2 is niet open.(p4b)
+2025-05-22 09:08:01 | Optie : RISP REL | Serienummer: 1628 | Status: fout | Fout: Groene LED 2 brandt niet.
+2025-05-22 09:09:07 | Optie : RISP REL | Serienummer: 1628 | Status: fout | Fout: Groene LED 2 brandt niet.
+2025-05-22 09:11:14 | Optie : RISP REL | Serienummer: 1628 | Status: fout | Fout: Relais 2 is niet open.(p4b)
+2025-05-22 09:26:58 | Optie : RISP REL | Serienummer: 1625 | Status: fout | UART gaf '103' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 09:27:02 | Optie : RISP REL | Serienummer: 1625 | Status: fout | UART gaf '504' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 09:27:02 | Optie : RISP REL | Serienummer: 1625 | Status: fout | UART gaf '504' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 09:27:05 | Optie : RISP REL | Serienummer: 1625 | Status: fout | UART gaf '502' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 09:27:33 | Serienummer: 1625 | Status: correct - PCB
+2025-05-22 09:27:52 | Optie : RISP REL | Serienummer: 1625 | Status: fout | UART gaf '103' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 09:27:55 | Optie : RISP REL | Serienummer: 1625 | Status: fout | UART gaf '504' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 09:27:56 | Optie : RISP REL | Serienummer: 1625 | Status: fout | UART gaf '504' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 09:27:59 | Optie : RISP REL | Serienummer: 1625 | Status: fout | UART gaf '502' i.p.v. 'S03'. Probeer opnieuw met BUTTON_1.
+2025-05-22 09:28:26 | Serienummer: 1625 | Status: correct - PCB
+2025-05-22 09:29:07 | Serienummer: 1625 | Status: correct - PCB
+2025-05-22 09:43:17 | Serienummer: 1625 | Status: correct - PCB
+2025-05-22 09:46:47 | Serienummer: 1625 | Status: correct - PCB
+2025-05-22 09:51:59 | Serienummer: 1625 | Status: correct - PCB
+2025-05-22 09:52:28 | Serienummer: 1625 | Status: correct - PCB
+2025-05-22 09:55:04 | Serienummer: 1625 | Status: correct - PCB
+2025-05-22 10:00:19 | Serienummer: 1625 | Status: correct - PCB
+2025-05-22 11:37:40 | Optie : PIM | Serienummer: 1506 | Status: fout | Stap 1 : Power up device met 24VDC en controle van module
+2025-05-22 11:39:29 | Optie : PIM | Serienummer: 1506 | Status: fout | Stap 1 : Power up device met 24VDC en controle van module
+2025-05-22 11:40:32 | Optie : PIM | Serienummer: 1506 | Status: fout | Stap 1 : Power up device met 24VDC en controle van module
+2025-05-22 11:42:10 | Optie : PIM | Serienummer: 1506 | Status: fout | Stap 1 : Power up device met 24VDC en controle van module
+2025-05-22 11:42:43 | Optie : PIM | Serienummer: 1506 | Status: fout | Stap 1 : Power up device met 24VDC en controle van module
+2025-05-22 12:46:24 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1 : Power up device met 24VDC en controle van module
+2025-05-22 13:12:51 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt
+2025-05-22 13:15:30 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt
+2025-05-22 13:16:09 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-22 13:16:29 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-22 13:17:01 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt
+2025-05-22 13:18:27 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt
+2025-05-22 13:23:04 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: Detectie is negatief – module niet gedetecteerd
+2025-05-22 13:35:46 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt
+2025-05-22 14:08:41 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = 123, verwacht = a00
+2025-05-22 14:09:30 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:13:06 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:16:15 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-22 14:16:42 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:18:02 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:20:39 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:24:46 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:25:15 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-22 14:25:29 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aa0, verwacht = a00
+2025-05-22 14:25:54 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:45:02 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aa0, verwacht = a00
+2025-05-22 14:45:26 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:45:57 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-22 14:46:25 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:47:41 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 14:53:55 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-22 14:54:28 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-22 15:25:11 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: Detectie is negatief – module niet gedetecteerd
+2025-05-22 15:25:43 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: Detectie is negatief – module niet gedetecteerd
+2025-05-22 15:26:45 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: Detectie is negatief – module niet gedetecteerd
+2025-05-22 15:26:59 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: Detectie is negatief – module niet gedetecteerd
+2025-05-22 15:29:54 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: Detectie is negatief – module niet gedetecteerd
+2025-05-22 15:30:08 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: Detectie is negatief – module niet gedetecteerd
+2025-05-22 15:31:43 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = w׷1!, verwacht = a00
+2025-05-22 15:32:19 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-23 07:37:09 | Optie : PIM | Serienummer: 1506 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = {( Y!)!a00, verwacht = a00
+2025-05-23 07:37:38 | Optie : PIM | Serienummer: 1506 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-23 09:29:11 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-23 09:33:44 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-23 09:34:15 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED brandt
+2025-05-23 09:36:33 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 09:39:41 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 09:40:26 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 09:40:46 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 09:41:05 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aa0, verwacht = a00
+2025-05-23 09:42:03 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 09:43:02 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 09:43:58 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 10:05:11 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 10:05:59 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 10:07:40 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 10:13:05 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 10:14:47 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 10:16:08 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 10:17:11 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
