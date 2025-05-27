@@ -19,9 +19,9 @@ scheduled_task = None
 script_queue = queue.Queue()
 
 scripts = {
-    "1": "V3test1.py",
-    "2": "V2test2.py",
-    "3": "test3.py"
+    "1": "/home/Assemblics/shared/AssemblicsPY/V3test1.py",
+    "2": "/home/Assemblics/shared/AssemblicsPY/V2test2.py",
+    "3": "/home/Assemblics/shared/AssemblicsPY/test3.py"
 }
 
 def enqueue_script(option, serienummer):

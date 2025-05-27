@@ -6,6 +6,8 @@ import datetime
 import os
 import threading
 import sys
+import tkinter as tk
+from typing import List
 
 # Signaal-LED's
 signal_r = DigitalOutputDevice(2)   # GPIO 2
@@ -98,7 +100,7 @@ def doorloop_stappen():
 def lees_uart(poort="/dev/ttyUSB0", baudrate=9600, timeout=1):
     global serienummer
     print("Wacht 3 seconden voor UART-start...")
-    #sleep(1)
+    sleep(1)
 
     try:
         with serial.Serial(poort, baudrate=baudrate, timeout=timeout) as ser:
@@ -124,6 +126,34 @@ def log_result(status, stap_omschrijving):
     print(regel, flush=True)
     with open(LOGBESTAND, "a") as f:
         f.write(regel + "\n")
+
+
+
+def vraag_led_status(vraag: str) -> bool:
+    root = tk.Tk()
+    root.withdraw()
+    antwoord = {"result": None}
+
+    def ja():
+        antwoord["result"] = True
+        popup.destroy()
+
+    def nee():
+        antwoord["result"] = False
+        popup.destroy()
+
+    popup = tk.Toplevel()
+    popup.title("LED Controle")
+    tk.Label(popup, text=vraag, font=("Arial", 12)).pack(padx=20, pady=10)
+    tk.Button(popup, text="JA", width=10, command=ja).pack(side=tk.LEFT, padx=20, pady=10)
+    tk.Button(popup, text="NEE", width=10, command=nee).pack(side=tk.RIGHT, padx=20, pady=10)
+
+    popup.grab_set()
+    root.wait_window(popup)
+    root.destroy()
+    return antwoord["result"]
+    
+   
         
 # Functie 5: Main
 def main():
@@ -165,19 +195,18 @@ def stap_1_r24v_uart_check():
         
         
 def stap_2_rs485_check():
-    print("Stap 2: Zet RS485 aan en controleer RS485A + Gele LED...", flush=True)
+    print("Stap 2: Zet RS485 aan en controleer RS485A + Gele LED (via gebruiker)...", flush=True)
     rs485.on()
     sleep(0.5)
 
     rs485a_status = rs485a.value
-    yellow_led_status = led_yellow_out.value
-    
+    gele_led_ok = vraag_led_status("Brand de gele LED?")
 
-    if rs485a_status and yellow_led_status:
-        print("correct", "Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt", flush=True)
+    if rs485a_status and gele_led_ok:
+        print("correct", "Stap 2 : RS485 ligt uit en gele led brand", flush=True)
         return True
     else:
-        log_result("fout", "Stap 2 : RS485 aanleggen en controle op RS485A + controle of gele LED aan ligt")
+        log_result("fout", "Stap 2 : RS485 aanleggen en controle op RS485A + bevestiging gele LED via gebruiker")
         return False
     
 def stap_3_magneet_fixstuur_check():
@@ -185,19 +214,17 @@ def stap_3_magneet_fixstuur_check():
     
     mc11.on()
     mc21.on()
-    sleep(5)
     mc12.on()
-    sleep(10)
+    sleep(1)
 
-    green_led_status = led_green2_out.value
+    green_led_status = vraag_led_status("Branden beide groene LEDs?")
     
-    print(led_green2_out.value)
 
-    if not green_led_status:
-        print("correct", "Stap 3 : Magneetcontacten schakelen en controle of groene fixstuur LED niet brandt", flush=True)
+    if green_led_status:
+        print("correct", "Stap 3 : Beide groene leds branden niet, alleen 1", flush=True)
         return True
     else:
-        log_result("fout", "Stap 3 : LED brandt")
+        log_result("fout", "Stap 3 : beide groene LEDs branden")
         return False
     
 def stap_4_groen_led1_check():
@@ -207,25 +234,25 @@ def stap_4_groen_led1_check():
     mc22.on()
     sleep(0.5)
 
-    groen_led1_status = led_green1_out.value
+    groen_led1_status = vraag_led_status("Branden beide groene LEDs?")
 
-    if groen_led1_status == 1:
-        print("correct", "Stap 4 : MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1", flush=True)
+    if not groen_led1_status:
+        print("correct", "Stap 4 : MC2.2 staat aan en 1 groene led brand", flush=True)
         return True
     else:
-        log_result("fout", "Stap 4 : MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1")
+        log_result("fout", "Stap 4 : MC2.2 staat aan maar beide groene leds branden")
         return False    
 
 def stap_5_rode_led_pcb_check():
     print("Stap 5: Controleer of de rode LED op de PCB brandt...", flush=True)
+    sleep(1)
+    rood_led_status = vraag_led_status("Brand de rode LED?")
 
-    rood_led_status = led_red_out.value
-
-    if rood_led_status == 1:
-        print("correct", "Stap 5 : Controle of de rode LED op de PCB brandt", flush=True)
+    if rood_led_status:
+        print("correct", "Stap 5 : rode LED op de PCB brand", flush=True)
         return True
     else:
-        log_result("fout", "Stap 5 : Controle of de rode LED op de PCB brandt")
+        log_result("fout", "Stap 5 : rode led brand niet")
         return False
     
 def stap_6_magneet_roodled_check():
@@ -235,13 +262,13 @@ def stap_6_magneet_roodled_check():
     mc12.on()
     sleep(0.5)
 
-    rood_led_status = led_red_out.value
+    rood_led_status = vraag_led_status("Brand de rode LED?")
 
-    if rood_led_status == 1:
-        print("correct", "Stap 6 : MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB", flush=True)
+    if not rood_led_status:
+        print("correct", "Stap 6 : rode led brandt niet", flush=True)
         return True
     else:
-        log_result("fout", "Stap 6 : MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB")
+        log_result("fout", "Stap 6 : rode led brand")
         return False
     
 def stap_7_afleggen():
@@ -256,7 +283,7 @@ def stap_7_afleggen():
     rs485.off()
     R_24V.off()
 
-    print("correct", "Stap 7 : Alle uitgangen uitgeschakeld", flush=True)
+    log_result("correct", "Test is correct")
     return True
 
 # Start het script

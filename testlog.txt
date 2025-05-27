@@ -116,3 +116,45 @@
 2025-05-23 10:14:47 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
 2025-05-23 10:16:08 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
 2025-05-23 10:17:11 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-23 13:46:20 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:46:36 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:47:05 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:47:30 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:50:31 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:50:52 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:51:44 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:53:19 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:54:48 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:56:42 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 13:56:57 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 14:00:50 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = aaa, verwacht = a00
+2025-05-23 14:11:08 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 5 : Controle of de rode LED op de PCB brandt
+2025-05-23 14:12:02 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 5 : Controle of de rode LED op de PCB brandt
+2025-05-23 14:14:24 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 5 : Controle of de rode LED op de PCB brandt
+2025-05-26 08:43:00 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: Detectie is negatief – module niet gedetecteerd
+2025-05-26 08:44:04 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: Detectie is negatief – module niet gedetecteerd
+2025-05-26 08:47:05 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 1: UART komt niet overeen: ontvangen = 9ƪia00, verwacht = a00
+2025-05-26 08:48:01 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 4 : MC1.2 uitschakelen, MC2.2 inschakelen en controle op groene LED 1
+2025-05-26 08:51:53 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 3 : LED brandt
+2025-05-26 08:58:18 | Optie : PIM | Serienummer: 1517 | Status: fout | Stap 6 : MC2.2 uitschakelen, MC1.2 inschakelen en controle op rode LED PCB
+2025-05-26 09:00:13 | Optie : PIM | Serienummer: 1517 | Status: correct - Test is correct
+2025-05-26 09:02:49 | Optie : PIM | Serienummer: 1517 | Status: correct - Test is correct
+2025-05-26 12:00:00 | Optie : PIM | Serienummer: 1517 | Status: correct - Test is correct
+2025-05-26 12:01:48 | Serienummer: 1625 | Status: correct - PCB
+2025-05-26 12:32:53 | Optie : RISP REL | Serienummer: 006 | Status: fout | print detectie is negatief
+2025-05-26 12:33:18 | Optie : RISP REL | Serienummer: 006 | Status: fout | verkeerde PCB aangesloten
+2025-05-26 12:33:50 | Optie : RISP REL | Serienummer: 006 | Status: fout | verkeerde PCB aangesloten
+2025-05-26 12:35:41 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Serienummer is 10a, maar verwacht 006.
+2025-05-26 12:35:56 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Serienummer is 10a, maar verwacht 006.
+2025-05-26 12:37:00 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Serienummer is 10a, maar verwacht 006.
+2025-05-26 12:37:11 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Serienummer is 10a, maar verwacht 006.
+2025-05-26 12:40:11 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Relais 1 is niet open.(p2c)Relais 2 is niet open.(p4c)
+2025-05-26 12:41:18 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Relais 1 is niet open.(p2c)Relais 2 is niet open.(p4c)
+2025-05-26 12:42:03 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Relais 1 is niet open.(p2c)Relais 2 is niet open.(p4c)
+2025-05-26 12:45:46 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Relais 2 is open.(p4c)Relais 2 is open.(p4b)
+2025-05-26 12:46:52 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Relais 1 is open.(p2c)Relais 1 is open.(p2b)
+2025-05-26 12:47:51 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Relais 1 is open.(p2c)Relais 1 is open.(p2b)Relais 2 is open.(p4c)Relais 2 is open.(p4b)
+2025-05-26 12:48:51 | Optie : RISP REL | Serienummer: 006 | Status: fout | Fout: Relais 1 is open.(p2c)Relais 1 is open.(p2b)Relais 2 is open.(p4c)Relais 2 is open.(p4b)
+2025-05-26 12:50:06 | Optie : RISP REL | Serienummer: 006 | Status: fout | Bridgewires actief, maar status klopt niet:Relais 2 is open.(p4c)Relais 2 is open.(p4b)
+2025-05-26 12:51:19 | Serienummer: 006 | Status: correct - PCB
+2025-05-26 13:01:39 | Serienummer: 006 | Status: correct - PCB
