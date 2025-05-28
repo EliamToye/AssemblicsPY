@@ -47,7 +47,7 @@ if not serienummergui.isdigit():
 
 # variabelen
 SERIENUMMER = serienummergui
-LOGBESTAND = "testlog.txt"
+LOGBESTAND = "/home/Assemblics/shared/AssemblicsPY/testlog.txt"
 serienummer = 123
 
 # Exit netjes bij Ctrl+C
@@ -149,9 +149,9 @@ def doorloop_stappen():
 def log_result(status, stap_omschrijving):
     if status == "fout":
         tijdstip = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        regel = f"{tijdstip} | Optie : RISP REL | Serienummer: {SERIENUMMER} | Status: fout | {stap_omschrijving}"
+        regel = f"{tijdstip} | Optie : RISP EL | Serienummer: {SERIENUMMER} | Status: fout | {stap_omschrijving}"
     else:
-        regel = f"{tijdstip} | Optie : RISP REL | Serienummer: {SERIENUMMER} | Status: correct - {stap_omschrijving}"
+        regel = f"{tijdstip} | Optie : RISP EL | Serienummer: {SERIENUMMER} | Status: correct - {stap_omschrijving}"
     print(regel, flush=True)
     with open(LOGBESTAND, "a") as f:
         f.write(regel + "\n")
@@ -304,13 +304,13 @@ def stap_4():
             if not geel_ok:
                 foutmelding += "Gele LED brandt niet."
             if p2c_ok:
-                foutmelding += "Relais 1 is niet open."
-            if not p2b:
-                foutmelding += "Relais 1 is niet open."
+                foutmelding += "Relais 1 is niet open.controle op U6"
+            if not p2b_ok:
+                foutmelding += "Relais 1 is niet open.controle op U6"
             if p4c_ok:
-                foutmelding += "Relais 2 is niet open."
+                foutmelding += "Relais 2 is niet open.controle op U5"
             if not p4b_ok:
-                foutmelding += "Relais 2 is niet open."
+                foutmelding += "Relais 2 is niet open.controle op U5"
             log_result("fout", foutmelding.strip())
             return False
 
@@ -338,15 +338,15 @@ def stap_5():
         else:
             foutmelding = "Fout: "
             if not LED_GREEN2_OUT.value:
-                foutmelding += "Groene LED 2 brandt niet. "
+                foutmelding += "Groene LED 2 brandt niet. 240 ohm weerstand is niet goed aangesloten. "
             if not p2c_ok:
-                foutmelding += "Relais 1 is niet open.(p2c)"
+                foutmelding += "Relais 1 is niet open.controle op U6"
             if p2b_ok:
-                foutmelding += "Relais 1 is niet open.(p2b)"
+                foutmelding += "Relais 1 is niet open.controle op U6"
             if not p4c_ok:
-                foutmelding += "Relais 2 is niet open.(p4c)"
+                foutmelding += "Relais 2 is niet open.controle op U5"
             if not p4b_ok:
-                foutmelding += "Relais 2 is niet open.(p4b)"
+                foutmelding += "Relais 2 is niet open.controle op U5"
             log_result("fout", foutmelding.strip())
             return False
 
@@ -375,17 +375,17 @@ def stap_6():
         else:
             foutmelding = "Fout: "
             if not groen_status:
-                foutmelding += "Groene LED 2 brandt niet. "
+                foutmelding += "Groene LED 2 brandt niet. 1k60 weerstand is niet goed aangesloten. "
             if not rood_status:
-                foutmelding += "Rode LED brandt niet."
+                foutmelding += "Rode LED brandt niet. 1k60 weerstand is niet goed aangesloten. "
             if p2c_ok:
-                foutmelding += "Relais 1 is niet open.(p2c)"
+                foutmelding += "Relais 1 is niet open.controle op U6"
             if p2b_ok:
-                foutmelding += "Relais 1 is niet open.(p2b)"
+                foutmelding += "Relais 1 is niet open.controle op U6"
             if not p4c_ok:
-                foutmelding += "Relais 2 is open.(p4c)"
+                foutmelding += "Relais 2 is open.controle op U5"
             if not p4b_ok:
-                foutmelding += "Relais 2 is open.(p4b)"
+                foutmelding += "Relais 2 is open.(p4b)controle op U5"
             log_result("fout", foutmelding.strip())
             return False
 
@@ -417,17 +417,17 @@ def stap_7():
         else:
             foutmelding = "Fout: "
             if not groen_status:
-                foutmelding += "Groene LED 2 brandt niet. "
+                foutmelding += "Groene LED 2 brandt niet. Fout bij aansluiten van 240 en 820 ohm weerstand. "
             if not geel_status:
-                foutmelding += "Gele LED brandt niet."
+                foutmelding += "Gele LED brandt niet. fout bij aansluiten van 240 en 820 ohm weerstand. "
             if not p2c_ok:
-                foutmelding += "Relais 1 is open.(p2c)"
+                foutmelding += "Relais 1 is open.controle op U6"
             if not p2b_ok:
-                foutmelding += "Relais 1 is open.(p2b)"
+                foutmelding += "Relais 1 is open.controle op U6"
             if p4c_ok:
-                foutmelding += "Relais 2 is niet open.(p4c)"
+                foutmelding += "Relais 2 is niet open.controle op U5"
             if p4b_ok:
-                foutmelding += "Relais 2 is niet open.(p4b)"
+                foutmelding += "Relais 2 is niet open.controle op U5"
             log_result("fout", foutmelding.strip())
             return False
 
@@ -499,15 +499,15 @@ def stap_9():
         else:
             foutmelding = "Fout: "
             if not LED_GREEN2_OUT.value:
-                foutmelding += "Groene LED 2 brandt niet. "
+                foutmelding += "Groene LED 2 brandt niet. Controle van p1"
             if not p2c_ok:
-                foutmelding += "Relais 1 is open.(p2c)"
+                foutmelding += "Relais 1 is open.controle op U6"
             if not p2b_ok:
-                foutmelding += "Relais 1 is open.(p2b)"
+                foutmelding += "Relais 1 is open.controle op U6"
             if not p4c_ok:
-                foutmelding += "Relais 2 is open.(p4c)"
+                foutmelding += "Relais 2 is open.controle op U5"
             if not p4b_ok:
-                foutmelding += "Relais 2 is open.(p4b)"
+                foutmelding += "Relais 2 is open.controle op U5"
             log_result("fout", foutmelding.strip())
             return False
 
@@ -538,17 +538,17 @@ def stap_10():
         else:
             foutmelding = "Bridgewires actief, maar status klopt niet:"
             if not groen:
-                foutmelding += " groene LED 2 uit."
+                foutmelding += " groene LED 2 uit.Controle van p1"
             if not rood:
-                foutmelding += " rode LED uit."
+                foutmelding += " rode LED uit.Controle van p1"
             if p2c_ok:
-                foutmelding += "Relais 1 is niet open.(p2c)"
+                foutmelding += "Relais 1 is niet open.controle op U6"
             if p2b_ok:
-                foutmelding += "Relais 1 is niet open.(p2b)"
+                foutmelding += "Relais 1 is niet open.controle op U6"
             if not p4c_ok:
-                foutmelding += "Relais 2 is open.(p4c)"
+                foutmelding += "Relais 2 is open.controle op U5"
             if not p4b_ok:
-                foutmelding += "Relais 2 is open.(p4b)"
+                foutmelding += "Relais 2 is open.controle op U5"
             log_result("fout", foutmelding)
             return False
 
@@ -601,7 +601,7 @@ def stap_12():
             print("correct", "Groene LED 2 brandt.", flush=True)
             return True
         else:
-            log_result("fout", "Groene LED 2 brandt niet.")
+            log_result("fout", "Groene LED 2 brandt niet.Software goed ingeladen? connectie problemen?")
             return False
 
     except Exception as e:
@@ -636,7 +636,7 @@ def stap_14():
         print("Stap 14: Loggen van succesbericht voor de PCB...", flush=True)
 
         # Als alle stappen correct zijn uitgevoerd, log dan dit succesbericht
-        succesbericht = f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | Serienummer: {SERIENUMMER} | Status: correct - PCB"
+        succesbericht = f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | Optie : RISP EL | Serienummer: {SERIENUMMER} | Status: correct - PCB"
 
         # Schrijf het succesbericht naar het logbestand
         with open(LOGBESTAND, "a") as f:

@@ -13,7 +13,7 @@ last_option = None
 active_option_label = None
 script_is_running = False
 process = None
-log_file = "testlog.txt"
+log_file = "/home/Assemblics/shared/AssemblicsPY/testlog.txt"
 delay_time = 5000
 scheduled_task = None
 script_queue = queue.Queue()
@@ -135,8 +135,10 @@ def open_log_file():
     if os.path.exists(log_file):
         try:
             with open(log_file, "r") as f:
-                content = f.read()
-                log_output.insert(tk.END, " V Logbestand:\n")
+                lines = f.readlines()
+                last_10_lines = lines[-10:]  # Alleen de laatste 10 regels
+                content = ''.join(last_10_lines)
+                log_output.insert(tk.END, " V Logbestand (laatste 10 regels):\n")
                 log_output.insert(tk.END, content)
                 log_output.see(tk.END)
         except Exception as e:
